@@ -12,7 +12,8 @@ import {
   faDollarSign,
   faCloudDownloadAlt,
   faInfoCircle,
-  faThumbsUp
+  faThumbsUp,
+  faHeart
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -26,7 +27,8 @@ library.add(
   faDollarSign,
   faCloudDownloadAlt,
   faInfoCircle,
-  faThumbsUp
+  faThumbsUp,
+  faHeart
 );
 
 const Layout = props => (
