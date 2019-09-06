@@ -13,7 +13,8 @@ import {
   faCloudDownloadAlt,
   faInfoCircle,
   faThumbsUp,
-  faHeart
+  faHeart,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -28,13 +29,31 @@ library.add(
   faCloudDownloadAlt,
   faInfoCircle,
   faThumbsUp,
-  faHeart
+  faHeart,
+  faBars
 );
 
 const Layout = props => (
   <>
     <Header />
+    <div></div>
     {props.children}
+    <style jsx>
+      {`
+        div {
+          height: 600px;
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
+            url(static/images/background.jpg);
+          background-position: top;
+          background-size: cover;
+          background-repeat: no-repeat;
+          padding-top: 100px;
+          padding-bottom: 50px;
+          color: #fff;
+          text-align: center;
+        }
+      `}
+    </style>
   </>
 );
 
