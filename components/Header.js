@@ -23,6 +23,15 @@ const Header = () => {
       const scrollPosition = window.scrollY;
       readScrollPosition(scrollPosition);
     });
+    return (
+      () => {
+        window.removeEventListener('scroll', function() {
+          const scrollPosition = window.scrollY;
+          readScrollPosition(scrollPosition);
+        });
+      },
+      []
+    );
   });
 
   return (
