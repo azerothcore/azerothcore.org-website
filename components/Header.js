@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Collapse,
@@ -11,23 +11,38 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
+  const [scrollPosition, readScrollPosition] = useState(0);
+  useEffect(() => {
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      readScrollPosition(scrollPosition);
+    });
+  });
+
   return (
     <header>
-      <Navbar style={{ backgroundColor: '#270c0c' }} expand="lg" fixed="top">
+      <Navbar
+        style={{ backgroundColor: scrollPosition > 50 ? '#270c0c' : 'transparent' }}
+        expand="md"
+        fixed="top"
+        id="navbar"
+      >
         <Link href="/" passHref>
           <NavbarBrand style={{ fontWeight: 'bold' }}>
             <img src="/static/images/logo-small.png" alt="AzerothCore logo" style={{ maxWidth: '24px' }} /> AzerothCore
           </NavbarBrand>
         </Link>
-        <NavbarToggler onClick={() => setOpen(!isOpen)} />
+        <NavbarToggler onClick={() => setOpen(!isOpen)}>
+          <FontAwesomeIcon width="0" icon="bars" />
+        </NavbarToggler>
         <Collapse isOpen={isOpen} navbar style={{ justifyContent: 'space-between' }}>
-          <Nav className="mr-auto" navbar>
+          <Nav className="mr-auto azth_main-nav" navbar>
             <NavItem>
               <NavLink href="https://github.com/AzerothCore/">
                 <FontAwesomeIcon width="0" icon={['fab', 'github']} /> Repositories
@@ -84,13 +99,11 @@ const Header = () => {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
-                  <NavItem>
-                    <Link href="/testimonials/" passHref>
-                      <NavLink>
-                        <FontAwesomeIcon width="0" icon="thumbs-up" /> Testimonials
-                      </NavLink>
-                    </Link>
-                  </NavItem>
+                  <Link href="/testimonials/" passHref>
+                    <NavLink>
+                      <FontAwesomeIcon width="0" icon="thumbs-up" /> Testimonials
+                    </NavLink>
+                  </Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -102,7 +115,7 @@ const Header = () => {
               </Link>
             </NavItem>
           </Nav>
-          <Nav className="ml-auto">
+          <Nav className="ml-auto azth_main-nav-social">
             <NavItem>
               <NavLink className="nav-link_social" href="https://www.facebook.com/AzerothCore/">
                 <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
@@ -129,6 +142,9 @@ const Header = () => {
           color: #ffc2b3;
         }
         header .navbar-brand:hover {
+          color: #fff;
+        }
+        .navbar-toggler {
           color: #fff;
         }
         .nav-link_social {
@@ -165,6 +181,21 @@ const Header = () => {
         }
         .dropdown-item:active {
           background-color: #fff;
+        }
+        .azth_main-nav > li > ul > li:hover a {
+          color: #ffc2b3;
+        }
+        @media (max-width: 860px) {
+          .azth_main-nav-social {
+            display: none;
+          }
+        }
+        @media (max-width: 767px) {
+          .azth_main-nav > li > ul {
+            border: none;
+            margin: 0 -1rem;
+            border-radius: 0px;
+          }
         }
       `}</style>
     </header>
