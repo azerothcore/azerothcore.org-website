@@ -18,21 +18,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
   const [scrollPosition, readScrollPosition] = useState(0);
+  function getScrollPosition() {
+    const scrollPosition = window.scrollY;
+    readScrollPosition(scrollPosition);
+  }
   useEffect(() => {
-    window.addEventListener('scroll', function() {
-      const scrollPosition = window.scrollY;
-      readScrollPosition(scrollPosition);
-    });
-    return (
-      () => {
-        window.removeEventListener('scroll', function() {
-          const scrollPosition = window.scrollY;
-          readScrollPosition(scrollPosition);
-        });
-      },
-      []
-    );
-  });
+    window.addEventListener('scroll', getScrollPosition);
+    return () => {
+      window.removeEventListener('scroll', getScrollPosition);
+    };
+  }, []);
 
   return (
     <header>
