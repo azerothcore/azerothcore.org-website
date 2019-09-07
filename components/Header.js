@@ -32,7 +32,9 @@ const Header = () => {
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: scrollPosition > 50 ? '#270c0c' : 'transparent' }}
+        style={
+          isOpen ? { backgroundColor: '#270c0c' } : { backgroundColor: scrollPosition > 50 ? '#270c0c' : 'transparent' }
+        }
         expand="md"
         fixed="top"
         id="navbar"
