@@ -114,7 +114,7 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Link href="/donations/" passHref>
+              <Link href="/donators/" passHref>
                 <NavLink>
                   <FontAwesomeIcon width="0" icon="heart" /> Donations
                 </NavLink>
@@ -141,6 +141,11 @@ const Header = () => {
         </Collapse>
       </Navbar>
       <style jsx global>{`
+        html,
+        body {
+          height: 100%;
+          position: relative;
+        }
         header a {
           color: #fff;
         }
@@ -149,6 +154,12 @@ const Header = () => {
         }
         header .navbar-brand:hover {
           color: #fff;
+        }
+        a {
+          color: #d90000;
+        }
+        a:hover {
+          color: #d90000;
         }
         .navbar-toggler {
           color: #fff;

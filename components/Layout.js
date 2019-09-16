@@ -1,4 +1,5 @@
 import Header from './Header';
+import Footer from './Footer';
 import { Container, Button } from 'reactstrap';
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -40,56 +41,64 @@ library.add(
 const Layout = props => (
   <>
     <Header />
-    <div className="page-header">
-      <Container>
-        <img src="/static/images/logo.png"></img>
-        <h1>AzerothCore</h1>
-        <p className="lead">Complete Open Source and Modular solution for MMO</p>
-        <Link href="/wiki/installation/">
-          <Button size="lg" color="danger" className="btn-installation">
-            Installation instructions <FontAwesomeIcon width="0" icon="angle-right" className="btn-installation_icon" />
-          </Button>
-        </Link>
-        <div className="github-buttons">
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=star&count=true"
-            frameBorder="0"
-            scrolling="0"
-            width="100px"
-            height="20px"
-          ></iframe>
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=fork&count=true"
-            frameBorder="0"
-            scrolling="0"
-            width="90px"
-            height="20px"
-          ></iframe>
-        </div>
-        <div className="social-button-container">
-          <ul className="social-button_list">
-            <li>
-              <a className="nav-link_social nav-link" href="https://www.facebook.com/AzerothCore/">
-                <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
-              </a>
-            </li>
-            <li>
-              <a className="nav-link_social nav-link" href="https://twitter.com/azeroth_core">
-                <FontAwesomeIcon width="0" icon={['fab', 'twitter']} />
-              </a>
-            </li>
-            <li>
-              <a className="nav-link_social nav-link" href="https://www.linkedin.com/company/azerothcore">
-                <FontAwesomeIcon width="0" icon={['fab', 'linkedin-in']} />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </Container>
+    <div className="page-wrapper">
+      <div className="page-header">
+        <Container>
+          <img src="/static/images/logo.png"></img>
+          <h1>AzerothCore</h1>
+          <p className="lead">Complete Open Source and Modular solution for MMO</p>
+          <Link href="/wiki/installation/">
+            <Button size="lg" color="danger" className="btn-installation">
+              Installation instructions{' '}
+              <FontAwesomeIcon width="0" icon="angle-right" className="btn-installation_icon" />
+            </Button>
+          </Link>
+          <div className="github-buttons">
+            <iframe
+              src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=star&count=true"
+              frameBorder="0"
+              scrolling="0"
+              width="100px"
+              height="20px"
+            ></iframe>
+            <iframe
+              src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=fork&count=true"
+              frameBorder="0"
+              scrolling="0"
+              width="90px"
+              height="20px"
+            ></iframe>
+          </div>
+          <div className="social-button-container">
+            <ul className="social-button_list">
+              <li>
+                <a className="nav-link_social nav-link" href="https://www.facebook.com/AzerothCore/">
+                  <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
+                </a>
+              </li>
+              <li>
+                <a className="nav-link_social nav-link" href="https://twitter.com/azeroth_core">
+                  <FontAwesomeIcon width="0" icon={['fab', 'twitter']} />
+                </a>
+              </li>
+              <li>
+                <a className="nav-link_social nav-link" href="https://www.linkedin.com/company/azerothcore">
+                  <FontAwesomeIcon width="0" icon={['fab', 'linkedin-in']} />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </Container>
+      </div>
+      {props.children}
     </div>
-    {props.children}
+    <Footer />
     <style jsx>
       {`
+        .page-wrapper {
+          min-height: 100vh;
+          width: 100%;
+        }
         .page-header {
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
             url(static/images/background.jpg);
