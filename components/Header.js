@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Collapse,
@@ -19,10 +19,11 @@ const Header = () => {
   const [isOpen, setOpen] = useState(false);
   const [scrollPosition, readScrollPosition] = useState(0);
   function getScrollPosition() {
-    const scrollPosition = window.scrollY;
-    readScrollPosition(scrollPosition);
+    const actualPosition = window.scrollY;
+    readScrollPosition(actualPosition);
   }
   useEffect(() => {
+    getScrollPosition();
     window.addEventListener('scroll', getScrollPosition);
     return () => {
       window.removeEventListener('scroll', getScrollPosition);
@@ -33,25 +34,42 @@ const Header = () => {
     <header>
       <Navbar
         style={
-          isOpen ? { backgroundColor: '#270c0c' } : { backgroundColor: scrollPosition > 50 ? '#270c0c' : 'transparent' }
+          isOpen
+            ? { backgroundColor: '#270c0c' }
+            : {
+                backgroundColor:
+                  scrollPosition > 50 ? '#270c0c' : 'transparent',
+              }
         }
         expand="md"
         fixed="top"
         id="navbar"
       >
         <Link href="/" passHref>
-          <NavbarBrand style={{ fontWeight: 'bold' }}>
-            <img src="/static/images/logo-small.png" alt="AzerothCore logo" style={{ maxWidth: '24px' }} /> AzerothCore
-          </NavbarBrand>
+          <>
+            <NavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
+              <img
+                src="/static/images/logo-small.png"
+                alt="AzerothCore logo"
+                style={{ maxWidth: '24px' }}
+              />{' '}
+              AzerothCore
+            </NavbarBrand>
+          </>
         </Link>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon width="0" icon="bars" />
         </NavbarToggler>
-        <Collapse isOpen={isOpen} navbar style={{ justifyContent: 'space-between' }}>
+        <Collapse
+          isOpen={isOpen}
+          navbar
+          style={{ justifyContent: 'space-between' }}
+        >
           <Nav className="mr-auto azth_main-nav" navbar>
             <NavItem>
               <NavLink href="https://github.com/AzerothCore/">
-                <FontAwesomeIcon width="0" icon={['fab', 'github']} /> Repositories
+                <FontAwesomeIcon width="0" icon={['fab', 'github']} />{' '}
+                Repositories
               </NavLink>
             </NavItem>
 
@@ -72,7 +90,11 @@ const Header = () => {
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://stackoverflow.com/questions/tagged/azerothcore?sort=newest">
-                    <FontAwesomeIcon width="0" icon={['fab', 'stack-overflow']} /> StackOverflow
+                    <FontAwesomeIcon
+                      width="0"
+                      icon={['fab', 'stack-overflow']}
+                    />{' '}
+                    StackOverflow
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
@@ -82,7 +104,8 @@ const Header = () => {
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://www.bountysource.com/teams/azerothcore">
-                    <FontAwesomeIcon width="0" icon="dollar-sign" /> Bountysource
+                    <FontAwesomeIcon width="0" icon="dollar-sign" />{' '}
+                    Bountysource
                   </NavLink>
                 </DropdownItem>
               </DropdownMenu>
@@ -90,7 +113,8 @@ const Header = () => {
             <NavItem>
               <Link href="/modules/" passHref>
                 <NavLink>
-                  <FontAwesomeIcon width="0" icon="cloud-download-alt" /> Modules
+                  <FontAwesomeIcon width="0" icon="cloud-download-alt" />{' '}
+                  Modules
                 </NavLink>
               </Link>
             </NavItem>
@@ -101,13 +125,15 @@ const Header = () => {
               <DropdownMenu tag="ul">
                 <DropdownItem tag="li">
                   <NavLink href="https://github.com/azerothcore/forum/issues/">
-                    <FontAwesomeIcon width="0" icon={['fab', 'wikipedia-w']} /> Wiki
+                    <FontAwesomeIcon width="0" icon={['fab', 'wikipedia-w']} />{' '}
+                    Wiki
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <Link href="/testimonials/" passHref>
                     <NavLink>
-                      <FontAwesomeIcon width="0" icon="thumbs-up" /> Testimonials
+                      <FontAwesomeIcon width="0" icon="thumbs-up" />{' '}
+                      Testimonials
                     </NavLink>
                   </Link>
                 </DropdownItem>
@@ -123,17 +149,26 @@ const Header = () => {
           </Nav>
           <Nav className="ml-auto azth_main-nav-social">
             <NavItem>
-              <NavLink className="nav-link_social" href="https://www.facebook.com/AzerothCore/">
+              <NavLink
+                className="nav-link_social"
+                href="https://www.facebook.com/AzerothCore/"
+              >
                 <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className="nav-link_social" href="https://twitter.com/azeroth_core">
+              <NavLink
+                className="nav-link_social"
+                href="https://twitter.com/azeroth_core"
+              >
                 <FontAwesomeIcon width="0" icon={['fab', 'twitter']} />
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className="nav-link_social" href="https://www.linkedin.com/company/azerothcore">
+              <NavLink
+                className="nav-link_social"
+                href="https://www.linkedin.com/company/azerothcore"
+              >
                 <FontAwesomeIcon width="0" icon={['fab', 'linkedin-in']} />
               </NavLink>
             </NavItem>
