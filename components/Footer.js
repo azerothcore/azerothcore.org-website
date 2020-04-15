@@ -1,8 +1,7 @@
-import { Container } from 'reactstrap';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-const hearthIcon = () => <FontAwesomeIcon width="0" icon="heart" />;
+import Link from 'next/link';
+import React from 'react';
+import { Container } from 'reactstrap';
 
 const Footer = () => {
   const year = new Date().getFullYear().toString();
@@ -10,22 +9,27 @@ const Footer = () => {
     <div className="footer">
       <Container>
         <p>
-          {`© AzerothCore ${year} ● Brought to you with `} <FontAwesomeIcon width="0" icon="heart" /> {` and C++`}
+          {`© AzerothCore ${year} ● Brought to you with `}{' '}
+          <FontAwesomeIcon width="0" icon="heart" /> {` and C++`}
         </p>
         <Link href="/donators/">
-          <a>
-            <img
-              src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
-              alt="PayPal - The safer, easier way to pay online!"
-            />
-          </a>
+          <img
+            src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
+            alt="PayPal - The safer, easier way to pay online!"
+          />
         </Link>
         <p className="last">
-          {'Most webservices of AzerothCore are powered by '} <FontAwesomeIcon width="0" icon={['fab', 'github']} />.
+          {'Most webservices of AzerothCore are powered by '}{' '}
+          <FontAwesomeIcon width="0" icon={['fab', 'github']} />.
           {`You can even edit this site sending a PR `}
-          <a href="https://github.com/azerothcore/azerothcore.github.io">here</a>
+          <a href="https://github.com/azerothcore/azerothcore.github.io">
+            here
+          </a>
           <br />
-          WebSite <a href="https://github.com/azerothcore/azerothcore.github.io/graphs/contributors">Contributors</a>
+          WebSite{' '}
+          <a href="https://github.com/azerothcore/azerothcore.github.io/graphs/contributors">
+            Contributors
+          </a>
         </p>
       </Container>
       <style jsx>{`

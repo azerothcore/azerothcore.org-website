@@ -1,4 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
+import PropTypes from 'prop-types';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
   faAngleRight,
@@ -48,7 +49,7 @@ library.add(
   faCogs,
 );
 
-const Layout = props => (
+const Layout = ({ children }) => (
   <>
     <Header />
     <div className="page-wrapper">
@@ -117,7 +118,7 @@ const Layout = props => (
           </div>
         </Container>
       </div>
-      {props.children}
+      {children}
     </div>
     <Footer />
     <style jsx>
@@ -197,5 +198,9 @@ const Layout = props => (
     </style>
   </>
 );
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Layout;

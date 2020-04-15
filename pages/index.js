@@ -10,10 +10,9 @@ export default function Index() {
       <div className="features-wrapper">
         <Container>
           <Row>
-            {features.map((feature, idx) => (
-              <Col sm="6" lg="4" key={idx}>
+            {features.map(feature => (
+              <Col sm="6" lg="4" key={feature.id}>
                 <CardFeature
-                  idx={idx}
                   icon={feature.icon}
                   title={feature.title}
                   text={feature.text}
