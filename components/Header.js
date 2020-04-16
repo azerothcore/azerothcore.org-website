@@ -49,7 +49,7 @@ const Header = () => {
           <>
             <NavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
               <img
-                src="/logo-small.png"
+                src={`${process.env.BACKEND_URL}/logo-small.png`}
                 alt="AzerothCore logo"
                 style={{ maxWidth: '24px' }}
               />{' '}
