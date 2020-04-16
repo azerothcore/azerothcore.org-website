@@ -20,6 +20,7 @@ export default function Index() {
               </Col>
             ))}
           </Row>
+          <hr />
         </Container>
       </div>
       <style jsx global>
@@ -30,6 +31,9 @@ export default function Index() {
           .features-wrapper h3 {
             margin: 0;
             font-size: 24px;
+          }
+          hr {
+            border: 1px solid #ca0000;
           }
         `}
       </style>

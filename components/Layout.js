@@ -21,7 +21,6 @@ import {
   faCogs,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'bootstrap/dist/css/bootstrap.css';
 import Link from 'next/link';
 import React from 'react';
 import { Button, Container } from 'reactstrap';
