@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 import {
   Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
   NavItem,
   NavLink,
   UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -45,7 +45,7 @@ const Header = () => {
         fixed="top"
         id="navbar"
       >
-        <Link href="/" passHref>
+        <Link href="/" as={`${process.env.BACKEND_URL}/`} passHref>
           <>
             <NavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
               <img
@@ -111,7 +111,11 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Link href="/modules/" passHref>
+              <Link
+                href="/modules"
+                as={`${process.env.BACKEND_URL}/modules`}
+                passHref
+              >
                 <NavLink>
                   <FontAwesomeIcon width="0" icon="cloud-download-alt" />{' '}
                   Modules
@@ -130,7 +134,11 @@ const Header = () => {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
-                  <Link href="/testimonials/" passHref>
+                  <Link
+                    href="/testimonials"
+                    as={`${process.env.BACKEND_URL}/testimonials`}
+                    passHref
+                  >
                     <NavLink>
                       <FontAwesomeIcon width="0" icon="thumbs-up" />{' '}
                       Testimonials
@@ -140,7 +148,11 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Link href="/donators/" passHref>
+              <Link
+                href="/donators"
+                as={`${process.env.BACKEND_URL}/donators`}
+                passHref
+              >
                 <NavLink>
                   <FontAwesomeIcon width="0" icon="heart" /> Donations
                 </NavLink>

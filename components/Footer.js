@@ -12,7 +12,7 @@ const Footer = () => {
           {`© AzerothCore ${year} ● Brought to you with `}{' '}
           <FontAwesomeIcon width="0" icon="heart" /> {` and C++`}
         </p>
-        <Link href="/donators/">
+        <Link href="/donators" as={`${process.env.BACKEND_URL}/donators`}>
           <img
             src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
             alt="PayPal - The safer, easier way to pay online!"

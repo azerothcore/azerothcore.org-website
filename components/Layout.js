@@ -59,7 +59,10 @@ const Layout = ({ children }) => (
           <p className="lead">
             Complete Open Source and Modular solution for MMO
           </p>
-          <Link href="/wiki/installation/">
+          <Link
+            href="/wiki/installation"
+            as={`${process.env.BACKEND_URL}/wiki/installation`}
+          >
             <Button size="lg" color="danger" className="btn-installation">
               Installation instructions{' '}
               <FontAwesomeIcon
