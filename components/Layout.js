@@ -54,7 +54,7 @@ const Layout = ({ children }) => (
     <div className="page-wrapper">
       <div className="page-header">
         <Container>
-          <img src="/static/images/logo.png" alt="Azeroth Core logo" />
+          <img src="/logo.png" alt="Azeroth Core logo" />
           <h1>AzerothCore</h1>
           <p className="lead">
             Complete Open Source and Modular solution for MMO
