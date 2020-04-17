@@ -28,9 +28,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install
-      - run: yarn build
-      - run: yarn export
+      - run: npm ci
+      - run: npm run build
+      - run: npm run export
       - run: touch out/.nojekyll
 
       - name: Deploy
