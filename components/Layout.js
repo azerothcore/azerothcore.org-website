@@ -55,7 +55,7 @@ const Layout = ({ children }) => (
       <div className="page-header">
         <Container>
           <img
-            src={`${process.env.BACKEND_URL}/logo.png`}
+            src={`${process.env.BACKEND_URL}/static/images/logo.png`}
             alt="Azeroth Core logo"
           />
           <h1>AzerothCore</h1>
