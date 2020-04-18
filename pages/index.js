@@ -1,35 +1,27 @@
-import { get } from 'axios';
+/* eslint camelcase: 0 */
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
+import useSWR from 'swr';
+import fetch from 'unfetch';
 import CardFeature from '../components/CardFeature';
 import Layout from '../components/Layout';
 import features from '../data/features';
 
-function cutString(string){
-  if(string.length > 60){
-    return string.slice(0,57) + '...'
+function cutString(string) {
+  if (string.length > 60) {
+    return `${string.slice(0, 57)}...`;
   }
-  return string
+  return string;
 }
 
-export default function Index() {
-  const [data, setData] = useState(undefined)
+const fetcher = url => fetch(url).then(r => r.json());
 
-  useEffect(() => {
-    const getCommits = async () => {
-      try {
-        const res = await get(
-          `https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15`,      );
-        const { data } = res;   
-        setData(data)
-      } catch (error) {
-        const data = error.message;
-        setData(data)
-      }
-    }
-    getCommits()
-  }, [])
+export default function Index() {
+  const { data, error } = useSWR(
+    'https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15',
+    fetcher,
+  );
 
   return (
     <Layout>
@@ -51,19 +43,40 @@ export default function Index() {
             <Col lg="8">
               <h2>Latest GitHub commits</h2>
               <div className="commits">
-                {typeof data === 'undefined' && <p>Loading latest GitHub commits</p>}
-                {typeof data === 'string' && <p>{data}</p>}
-                {Array.isArray(data) && (
+                {!data && <p>Loading latest GitHub commits</p>}
+                {error && <p>Error while fetching latest GitHub commits</p>}
+                {data && (
                   <ul className="commits-list">
                     {data.map(commitObj => {
-                      const { author, commit, html_url } = commitObj;
+                      const { author, commit, html_url, sha } = commitObj;
                       return (
-                        <li>
-                          <img src={author?.avatar_url || `${process.env.BACKEND_URL}/bot-avatar.png`} alt="Github avatar" className="github-avatar" />
-                          {author ? <a href={author.html_url} className="github-user">{author.login}</a> : commit.author.name}
+                        <li key={sha}>
+                          <img
+                            src={
+                              author?.avatar_url ||
+                              `${process.env.BACKEND_URL}/bot-avatar.png`
+                            }
+                            alt="Github avatar"
+                            className="github-avatar"
+                          />
+                          {author ? (
+                            <a href={author.html_url} className="github-user">
+                              {author.login}
+                            </a>
+                          ) : (
+                            commit.author.name
+                          )}
                           <span className="item-separator">committed</span>
-                          "<span className="github-link-container"><a href={html_url} title={commit.message} className="github-commit-link">{`${cutString(commit.message)}`}</a></span>"
-                          <span className="github-time">{`${formatDistanceToNow(parseISO(commit.author.date))} ago`}</span>
+                          <span className="github-link-container">
+                            <a
+                              href={html_url}
+                              title={commit.message}
+                              className="github-commit-link"
+                            >{`${cutString(commit.message)}`}</a>
+                          </span>
+                          <span className="github-time">{`${formatDistanceToNow(
+                            parseISO(commit.author.date),
+                          )} ago`}</span>
                         </li>
                       );
                     })}
