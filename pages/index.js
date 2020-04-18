@@ -1,7 +1,6 @@
 import { get } from 'axios';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import CardFeature from '../components/CardFeature';
 import Layout from '../components/Layout';
@@ -14,21 +13,24 @@ function cutString(string){
   return string
 }
 
-export async function getServerSideProps() {
-  try {
-    const res = await get(
-      `https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15`,
-    );
-    const { data } = res;
-    // Pass data to the page via props
-    return { props: { data } };
-  } catch (error) {
-    const data = error.message;
-    return { props: { data } };
-  }
-}
+export default function Index() {
+  const [data, setData] = useState(undefined)
 
-export default function Index({ data }) {
+  useEffect(() => {
+    const getCommits = async () => {
+      try {
+        const res = await get(
+          `https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15`,      );
+        const { data } = res;   
+        setData(data)
+      } catch (error) {
+        const data = error.message;
+        setData(data)
+      }
+    }
+    getCommits()
+  }, [])
+
   return (
     <Layout>
       <div className="features-wrapper">
@@ -49,9 +51,9 @@ export default function Index({ data }) {
             <Col lg="8">
               <h2>Latest GitHub commits</h2>
               <div className="commits">
+                {typeof data === 'undefined' && <p>Loading latest GitHub commits</p>}
                 {typeof data === 'string' && <p>{data}</p>}
-
-                {typeof data !== 'string' && (
+                {Array.isArray(data) && (
                   <ul className="commits-list">
                     {data.map(commitObj => {
                       const { author, commit, html_url } = commitObj;
@@ -133,7 +135,3 @@ export default function Index({ data }) {
     </Layout>
   );
 }
-
-Index.propTypes = {
-  data: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-};
