@@ -1,10 +1,11 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import PropTypes from 'prop-types';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
   faAngleRight,
   faBars,
+  faCheckCircle,
   faCloudDownloadAlt,
+  faCogs,
   faComments,
   faCubes,
   faDollarSign,
@@ -17,11 +18,10 @@ import {
   faRss,
   faThumbsUp,
   faUsers,
-  faCheckCircle,
-  faCogs,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Container } from 'reactstrap';
 import Footer from './Footer';
@@ -55,7 +55,7 @@ const Layout = ({ children }) => (
       <div className="page-header">
         <Container>
           <img
-            src={`${process.env.BACKEND_URL}/static/images/logo.png`}
+            src={`${process.env.BACKEND_URL}/logo.png`}
             alt="Azeroth Core logo"
           />
           <h1>AzerothCore</h1>
@@ -138,7 +138,7 @@ const Layout = ({ children }) => (
               rgba(0, 0, 0, 0.6) 0%,
               rgba(0, 0, 0, 0.6) 100%
             ),
-            url(static/images/background.jpg);
+            url(background.jpg);
           background-position: top;
           background-size: cover;
           background-repeat: no-repeat;

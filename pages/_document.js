@@ -19,18 +19,18 @@ export default class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={`${process.env.BACKEND_URL}/static/images/apple-touch-icon.png`}
+            href={`${process.env.BACKEND_URL}/apple-touch-icon.png`}
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${process.env.BACKEND_URL}/static/images/favicon-32x32.png`}
+            href={`${process.env.BACKEND_URL}/favicon-32x32.png`}
             sizes="32x32"
           />
           <link
             rel="icon"
             type="image/png"
-            href={`${process.env.BACKEND_URL}/static/images/favicon-16x16.png`}
+            href={`${process.env.BACKEND_URL}/favicon-16x16.png`}
             sizes="16x16"
           />
           <link
