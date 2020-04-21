@@ -58,7 +58,7 @@ export default function Index() {
             <Col md="6" lg="8">
               <h2>Latest GitHub commits</h2>
               <div className="commits">
-                {!data && <p>Loading latest GitHub commits</p>}
+                {!data && !error && <p>Loading latest GitHub commits</p>}
                 {error && <p>Error while fetching latest GitHub commits</p>}
                 {data && (
                   <ul className="commits-list">
