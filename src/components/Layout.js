@@ -24,6 +24,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Container } from 'reactstrap';
+import DiscordWidget from './DiscordWidget';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -126,6 +127,7 @@ const Layout = ({ children }) => (
       {children}
     </div>
     <Footer />
+    <DiscordWidget />
     <style jsx>
       {`
         .page-wrapper {
