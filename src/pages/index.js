@@ -76,7 +76,7 @@ export default function Index({ pageFeatures }) {
                   <Page
                     href="https://www.facebook.com/AzerothCore"
                     tabs="timeline"
-                    adaptContainerWidth
+                    width="340px"
                     hideCover
                     smallHeader
                   />
@@ -164,7 +164,7 @@ export default function Index({ pageFeatures }) {
           .item-separator {
             margin: 0 5px;
           }
-          @media (max-width: 575px) {
+          @media (max-width: 1200px) {
             .commits-list li {
               white-space: normal;
               display: -webkit-box;
