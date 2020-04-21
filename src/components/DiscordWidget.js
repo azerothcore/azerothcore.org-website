@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AnimateHeight from 'react-animate-height';
 
 function DiscordWidget() {
   const [height, setHeight] = useState(0);
+  const [contentLoaded, setContentLoaded] = useState(false);
+  const iframe = useRef();
+
+  const handleLoad = () => {
+    setContentLoaded(true);
+  };
+
+  useEffect(() => {
+    iframe.current.addEventListener('load', handleLoad);
+    return () => iframe.current.removeEventListener('load', handleLoad);
+  }, []);
+
   const toggleHeight = () => {
     setHeight(height === 0 ? 505 : 0);
   };
   return (
-    <div className="chat_box">
+    <div className={`chat_box ${contentLoaded ? 'visible' : 'hidden'}`}>
       <button type="button" className="chat_head" onClick={toggleHeight}>
         Open Chat
       </button>
@@ -20,6 +32,7 @@ function DiscordWidget() {
             height="500"
             allowtransparency="true"
             frameBorder="0"
+            ref={iframe}
           />
         </div>
       </AnimateHeight>
@@ -48,6 +61,12 @@ function DiscordWidget() {
           }
           .chat_head:focus {
             outline: 5px auto -webkit-focus-ring-color;
+          }
+          .hidden {
+            visibility: hidden;
+          }
+          .visible {
+            visibility: visible;
           }
           @media (max-width: 767px) {
             .chat_box {
