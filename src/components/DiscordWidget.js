@@ -8,9 +8,9 @@ function DiscordWidget() {
   };
   return (
     <div className="chat_box">
-      <div className="chat_head" onClick={toggleHeight}>
+      <button type="button" className="chat_head" onClick={toggleHeight}>
         Open Chat
-      </div>
+      </button>
       <AnimateHeight duration={500} height={height}>
         <div className="chat_body">
           <iframe
@@ -43,6 +43,11 @@ function DiscordWidget() {
             border-radius: 5px 5px 0px 0px;
             text-align: center;
             font-size: 0.75em;
+            width: 100%;
+            border: none;
+          }
+          .chat_head:focus {
+            outline: 5px auto -webkit-focus-ring-color;
           }
           @media (max-width: 767px) {
             .chat_box {
