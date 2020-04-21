@@ -1,0 +1,1 @@
+We try to make our software as [modular](https://en.wikipedia.org/wiki/Modular_programming) as possible, because modular software is much easier to be extended. [Read More...](http://www.azerothcore.org/wiki/The-Modular-Structure)

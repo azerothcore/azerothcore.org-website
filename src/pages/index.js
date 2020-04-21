@@ -1,5 +1,8 @@
 /* eslint camelcase: 0 */
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import fs from 'fs';
+import path from 'path';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FacebookProvider, Page } from 'react-facebook';
 import { Col, Container, Row } from 'reactstrap';
@@ -7,7 +10,7 @@ import useSWR from 'swr';
 import fetch from 'unfetch';
 import CardFeature from '../components/CardFeature';
 import Layout from '../components/Layout';
-import features from '../data/features';
+import features from '../data/homePageFeatures/features';
 
 function cutString(string) {
   if (string.length > 60) {
@@ -18,7 +21,32 @@ function cutString(string) {
 
 const fetcher = url => fetch(url).then(r => r.json());
 
-export default function Index() {
+export async function getStaticProps() {
+  const featureDirectory = path.join(
+    process.cwd(),
+    'src/data/homePageFeatures',
+  );
+  const pageFeatures = [];
+  features.forEach(feature => {
+    const filePath = path.join(featureDirectory, feature.mdFileName);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const cardFeature = {
+      id: feature.id,
+      icon: feature.icon,
+      title: feature.title,
+      text: content,
+    };
+    pageFeatures.push(cardFeature);
+  });
+
+  return {
+    props: {
+      pageFeatures,
+    },
+  };
+}
+
+export default function Index({ pageFeatures }) {
   const { data, error } = useSWR(
     'https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15',
     fetcher,
@@ -29,7 +57,7 @@ export default function Index() {
       <div className="features-wrapper">
         <Container>
           <Row>
-            {features.map(feature => (
+            {pageFeatures.map(feature => (
               <Col sm="6" lg="4" key={feature.id}>
                 <CardFeature
                   icon={feature.icon}
@@ -168,3 +196,14 @@ export default function Index() {
     </Layout>
   );
 }
+
+Index.propTypes = {
+  pageFeatures: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      icon: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+      text: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};

@@ -1,0 +1,2 @@
+AzerothCore has a strong and solid base, coming from years of development: it is based on MaNGOS, TrinityCore and SunwellCore.  
+We're improving this reliability offering a project that follow specific versioning rules, allowing you to develop in the right way.

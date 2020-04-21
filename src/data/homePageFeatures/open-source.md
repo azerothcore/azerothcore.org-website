@@ -1,0 +1,1 @@
+AzerothCore modules are released under [GNU AGPL 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html) and [GNU GPL 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html), both those liceses are totally free and open source. We believe in [the free software](https://www.gnu.org/philosophy/free-sw.en.html), we love cooperation.

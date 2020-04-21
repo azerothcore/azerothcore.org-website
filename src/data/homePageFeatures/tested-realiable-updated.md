@@ -1,0 +1,1 @@
+SunwellCore, the father of AzerothCore, had been running with thousands of players for years. The goal of AzerothCore is to keep this game application updated, continuing its development.
