@@ -1,6 +1,7 @@
 /* eslint camelcase: 0 */
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import React from 'react';
+import { FacebookProvider, Page } from 'react-facebook';
 import { Col, Container, Row } from 'reactstrap';
 import useSWR from 'swr';
 import fetch from 'unfetch';
@@ -40,7 +41,21 @@ export default function Index() {
           </Row>
           <hr />
           <Row className="text-center">
-            <Col lg="8">
+            <Col md="6" lg="4">
+              <div className="facebook-page-container">
+                <h2>Latest posts</h2>
+                <FacebookProvider appId="1676433352594466">
+                  <Page
+                    href="https://www.facebook.com/AzerothCore"
+                    tabs="timeline"
+                    adaptContainerWidth
+                    hideCover
+                    smallHeader
+                  />
+                </FacebookProvider>
+              </div>
+            </Col>
+            <Col md="6" lg="8">
               <h2>Latest GitHub commits</h2>
               <div className="commits">
                 {!data && <p>Loading latest GitHub commits</p>}
@@ -130,6 +145,11 @@ export default function Index() {
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: normal;            
+            }
+          }
+          @media (max-width: 767px) {
+            .facebook-page-container {
+              padding-bottom: 25px;
             }
           }
         `}
