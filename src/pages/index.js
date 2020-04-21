@@ -69,7 +69,7 @@ export default function Index({ pageFeatures }) {
           </Row>
           <hr />
           <Row className="text-center">
-            <Col md="6" lg="4">
+            <Col md="6" lg="6" xl="4">
               <div className="facebook-page-container">
                 <h2>Latest posts</h2>
                 <FacebookProvider appId="1676433352594466">
@@ -83,7 +83,7 @@ export default function Index({ pageFeatures }) {
                 </FacebookProvider>
               </div>
             </Col>
-            <Col md="6" lg="8">
+            <Col md="6" lg="6" xl="8">
               <h2>Latest GitHub commits</h2>
               <div className="commits">
                 {!data && !error && <p>Loading latest GitHub commits</p>}
@@ -99,6 +99,7 @@ export default function Index({ pageFeatures }) {
                               author?.avatar_url ||
                               `${process.env.BACKEND_URL}/bot-avatar.png`
                             }
+                            loading="lazy"
                             alt="Github avatar"
                             className="github-avatar"
                           />
