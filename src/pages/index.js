@@ -93,6 +93,7 @@ export default function Index({ pageFeatures }) {
                             loading="lazy"
                             alt="Github avatar"
                             className="github-avatar"
+                            width="25px"
                           />
                           {author ? (
                             <a href={author.html_url} className="github-user">
