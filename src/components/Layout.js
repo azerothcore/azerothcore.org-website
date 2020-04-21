@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import Head from 'next/head';
 import {
   faAngleRight,
   faBars,
@@ -51,6 +52,9 @@ library.add(
 
 const Layout = ({ children }) => (
   <>
+    <Head>
+      <title>AzerothCore</title>
+    </Head>
     <Header />
     <div className="page-wrapper">
       <div className="page-header">
