@@ -7,19 +7,10 @@ import React from 'react';
 import { FacebookProvider, Page } from 'react-facebook';
 import { Col, Container, Row } from 'reactstrap';
 import useSWR from 'swr';
-import fetch from 'unfetch';
 import CardFeature from '../components/CardFeature';
 import Layout from '../components/Layout';
 import features from '../data/homePageFeatures/features';
-
-function cutString(string) {
-  if (string.length > 60) {
-    return `${string.slice(0, 57)}...`;
-  }
-  return string;
-}
-
-const fetcher = url => fetch(url).then(r => r.json());
+import { cutString, fetcher } from '../utils/functions';
 
 export async function getStaticProps() {
   const featureDirectory = path.join(
