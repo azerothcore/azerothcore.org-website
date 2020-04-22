@@ -8,12 +8,19 @@ import {
   DropdownToggle,
   Nav,
   Navbar,
-  NavbarBrand,
   NavbarToggler,
   NavItem,
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
+
+const RefNavbarBrand = React.forwardRef((props, ref) => {
+  return (
+    <a className="navbar-brand" {...props} ref={ref}>
+      {props.children}
+    </a>
+  );
+});
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -46,16 +53,14 @@ const Header = () => {
         id="navbar"
       >
         <Link href="/" as={`${process.env.BACKEND_URL}/`} passHref>
-          <>
-            <NavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
-              <img
-                src={`${process.env.BACKEND_URL}/logo-small.png`}
-                alt="AzerothCore logo"
-                style={{ maxWidth: '24px' }}
-              />{' '}
-              AzerothCore
-            </NavbarBrand>
-          </>
+          <RefNavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
+            <img
+              src={`${process.env.BACKEND_URL}/logo-small.png`}
+              alt="AzerothCore logo"
+              style={{ maxWidth: '24px' }}
+            />{' '}
+            AzerothCore
+          </RefNavbarBrand>
         </Link>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon width="0" icon="bars" />
@@ -84,7 +89,7 @@ const Header = () => {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
-                  <NavLink href="http://azerothcore.altervista.org/wp/">
+                  <NavLink href="/blog" as={`${process.env.BACKEND_URL}/blog`}>
                     <FontAwesomeIcon width="0" icon="rss" /> Blog
                   </NavLink>
                 </DropdownItem>
