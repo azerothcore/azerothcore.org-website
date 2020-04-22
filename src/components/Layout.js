@@ -1,6 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import Head from 'next/head';
 import {
   faAngleRight,
   faBars,
@@ -21,13 +20,12 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Container } from 'reactstrap';
 import DiscordWidget from './DiscordWidget';
-import Footer from './Footer';
-import Header from './Header';
 
 library.add(
   fab,
@@ -55,7 +53,6 @@ const Layout = ({ children }) => (
     <Head>
       <title>AzerothCore</title>
     </Head>
-    <Header />
     <div className="page-wrapper">
       <div className="page-header">
         <Container>
@@ -130,7 +127,6 @@ const Layout = ({ children }) => (
       </div>
       {children}
     </div>
-    <Footer />
     <DiscordWidget />
     <style jsx>
       {`
