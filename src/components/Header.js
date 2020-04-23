@@ -89,9 +89,15 @@ const Header = () => {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
-                  <NavLink href="/blog" as={`${process.env.BACKEND_URL}/blog`}>
-                    <FontAwesomeIcon width="0" icon="rss" /> Blog
-                  </NavLink>
+                  <Link
+                    href="/blog"
+                    as={`${process.env.BACKEND_URL}/blog`}
+                    passHref
+                  >
+                    <NavLink>
+                      <FontAwesomeIcon width="0" icon="rss" /> Blog
+                    </NavLink>
+                  </Link>
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://stackoverflow.com/questions/tagged/azerothcore?sort=newest">
