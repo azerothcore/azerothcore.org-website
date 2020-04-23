@@ -1,7 +1,5 @@
 /* eslint camelcase: 0 */
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import fs from 'fs';
-import path from 'path';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FacebookProvider, Page } from 'react-facebook';
@@ -9,10 +7,13 @@ import { Col, Container, Row } from 'reactstrap';
 import useSWR from 'swr';
 import CardFeature from '../components/CardFeature';
 import Layout from '../components/Layout';
-import features from '../data/homePageFeatures/features';
 import { cutString, fetcher } from '../utils/functions';
 
 export async function getStaticProps() {
+  const features = (await import('../data/homePageFeatures/features')).default;
+  const fs = (await import('fs')).default;
+  const path = (await import('path')).default;
+
   const featureDirectory = path.join(
     process.cwd(),
     'src/data/homePageFeatures',
