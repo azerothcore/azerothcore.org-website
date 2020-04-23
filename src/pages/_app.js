@@ -6,9 +6,9 @@ import Header from '../components/Header';
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Header />
+      {pageProps.statusCode !== 404 && <Header />}
       <Component {...pageProps} />
-      <Footer />
+      {pageProps.statusCode !== 404 && <Footer />}
     </>
   );
 }
