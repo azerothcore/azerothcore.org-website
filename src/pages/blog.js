@@ -2,7 +2,6 @@ import { format, parseISO } from 'date-fns';
 import { request } from 'graphql-request';
 import Link from 'next/link';
 import React from 'react';
-import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import {
   Button,
@@ -74,7 +73,10 @@ function Blog() {
                             />
                           </div>
                         </CardText>
-                        <Link href="/">
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                        >
                           <Button className="post-card-button">
                             Read the post
                           </Button>

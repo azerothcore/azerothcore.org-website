@@ -11,6 +11,9 @@ export const cutString = (string, length = 60) => {
 
 export const getPreviewText = (string, length) => {
   const noHtml = string.replace(/<[^>]+>/g, '');
-  const previewString = cutString(noHtml, length);
+  const previewString = cutString(noHtml, length).replace(
+    /(\r\n|\n|\r)/gm,
+    ' ',
+  );
   return previewString.toLowerCase();
 };
