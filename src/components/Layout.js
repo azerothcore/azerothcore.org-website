@@ -125,7 +125,7 @@ const Layout = ({ children }) => (
           </div>
         </Container>
       </div>
-      {children}
+      <div className="page-content">{children}</div>
     </div>
     <DiscordWidget />
     <style jsx>
@@ -151,6 +151,9 @@ const Layout = ({ children }) => (
         }
         h1 {
           margin-top: 20px;
+        }
+        .page-content {
+          padding: 40px 0;
         }
         .github-buttons {
           margin-top: 14px;

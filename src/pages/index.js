@@ -177,9 +177,6 @@ export default function Index({ pageFeatures }) {
       </style>
       <style jsx global>
         {`
-          .features-wrapper {
-            padding: 40px 0;
-          }
           .features-wrapper h3 {
             margin: 0;
             font-size: 24px;
