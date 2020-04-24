@@ -8,12 +8,11 @@ import {
   Button,
   Card,
   CardSubtitle,
-  CardText,
   CardTitle,
   Col,
   Container,
   Row,
-  Spinner,
+  Spinner
 } from 'reactstrap';
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
@@ -80,14 +79,14 @@ function Blog() {
                         )}`}</span>
                       </CardSubtitle>
                       <hr />
-                      <CardText>
+                      <div className="card-text">
                         <div className="card-preview-text">
                           <ReactMarkdown
-                            source={getPreviewText(post.content, 300)}
+                            source={getPreviewText(post.content, 350)}
                             escapeHtml={false}
                           />
                         </div>
-                      </CardText>
+                      </div>
                       <Link
                         href={`/blog/${post.slug}`}
                         as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
@@ -105,6 +104,9 @@ function Blog() {
             {`
               .post-card-container {
                 padding: 20px;
+              }
+              .card-text {
+                margin-bottom: 10px;
               }
               h3 {
                 font-size: 1.35rem;
