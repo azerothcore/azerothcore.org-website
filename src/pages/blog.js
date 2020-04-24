@@ -13,7 +13,7 @@ import {
   Col,
   Container,
   Row,
-  Spinner
+  Spinner,
 } from 'reactstrap';
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
@@ -145,7 +145,11 @@ function Blog() {
     }
   }, [inView, pages, isLoadingMore, isReachingEnd, errorOnFetch]);
   return (
-    <Layout>
+    <Layout
+      page="blog"
+      title="AzerothCore Blog"
+      lead="Stay updated with the latest news from our developers"
+    >
       <div className="postlist-container">
         <Container>
           {pages}

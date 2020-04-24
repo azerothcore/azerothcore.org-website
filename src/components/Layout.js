@@ -48,10 +48,10 @@ library.add(
   faCogs,
 );
 
-const Layout = ({ children }) => (
+const Layout = ({ children, title, lead, page }) => (
   <>
     <Head>
-      <title>AzerothCore</title>
+      <title>{title}</title>
     </Head>
     <div className="page-wrapper">
       <div className="page-header">
@@ -60,41 +60,43 @@ const Layout = ({ children }) => (
             src={`${process.env.BACKEND_URL}/logo.png`}
             alt="Azeroth Core logo"
           />
-          <h1>AzerothCore</h1>
-          <p className="lead">
-            Complete Open Source and Modular solution for MMO
-          </p>
-          <Link
-            href="/wiki/installation"
-            as={`${process.env.BACKEND_URL}/wiki/installation`}
-          >
-            <Button size="lg" color="danger" className="btn-installation">
-              Installation instructions{' '}
-              <FontAwesomeIcon
-                width="0"
-                icon="angle-right"
-                className="btn-installation_icon"
-              />
-            </Button>
-          </Link>
-          <div className="github-buttons">
-            <iframe
-              title="github stars"
-              src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=star&count=true"
-              frameBorder="0"
-              scrolling="0"
-              width="100px"
-              height="20px"
-            />
-            <iframe
-              title="github forks"
-              src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=fork&count=true"
-              frameBorder="0"
-              scrolling="0"
-              width="90px"
-              height="20px"
-            />
-          </div>
+          <h1>{title}</h1>
+          <p className="lead">{lead}</p>
+          {page === 'home' && (
+            <>
+              <Link
+                href="/wiki/installation"
+                as={`${process.env.BACKEND_URL}/wiki/installation`}
+              >
+                <Button size="lg" color="danger" className="btn-installation">
+                  Installation instructions{' '}
+                  <FontAwesomeIcon
+                    width="0"
+                    icon="angle-right"
+                    className="btn-installation_icon"
+                  />
+                </Button>
+              </Link>
+              <div className="github-buttons">
+                <iframe
+                  title="github stars"
+                  src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=star&count=true"
+                  frameBorder="0"
+                  scrolling="0"
+                  width="100px"
+                  height="20px"
+                />
+                <iframe
+                  title="github forks"
+                  src="https://ghbtns.com/github-btn.html?user=azerothcore&repo=azerothcore-wotlk&type=fork&count=true"
+                  frameBorder="0"
+                  scrolling="0"
+                  width="90px"
+                  height="20px"
+                />
+              </div>
+            </>
+          )}
           <div className="social-button-container">
             <ul className="social-button_list">
               <li>
@@ -209,8 +211,17 @@ const Layout = ({ children }) => (
   </>
 );
 
+Layout.defaultProps = {
+  title: 'AzerothCore',
+  lead: 'Complete Open Source and Modular solution for MMO',
+  page: 'home',
+};
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  lead: PropTypes.string,
+  page: PropTypes.string,
 };
 
 export default Layout;
