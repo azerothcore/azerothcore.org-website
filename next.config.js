@@ -7,6 +7,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+module.exports = withBundleAnalyzer({});
+
 module.exports = withCSS({
   cssLoaderOptions: {
     url: false,
@@ -16,5 +18,3 @@ module.exports = withCSS({
 module.exports = {
   assetPrefix: !debug ? '/azerothcore.github.io/' : '',
 };
-
-module.exports = withBundleAnalyzer({});
