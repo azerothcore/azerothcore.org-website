@@ -13,7 +13,7 @@ import {
   Col,
   Container,
   Row,
-  Spinner
+  Spinner,
 } from 'reactstrap';
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
@@ -119,12 +119,12 @@ function Blog() {
       );
     },
 
-    // get next page's offset from the index of current page
+    // get next page's offset from the page endCursor
     SWR => {
       // there's no next page
       if (SWR.data && !SWR.data.posts.pageInfo.hasNextPage) return null;
 
-      // offset = pageCount × pageSize
+      // offset = page endCursor
       return SWR.data.posts.pageInfo.endCursor;
     },
 
