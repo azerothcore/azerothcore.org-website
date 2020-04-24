@@ -13,7 +13,7 @@ import {
   Col,
   Container,
   Row,
-  Spinner,
+  Spinner
 } from 'reactstrap';
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
@@ -52,12 +52,21 @@ function Blog() {
 
     // page component
     ({ offset, withSWR }) => {
-      const { data } = withSWR(
+      const { data, error } = withSWR(
         useSWR([query, offset], (q, cursor) =>
           fetcher(q, { first: 3, after: cursor }),
         ),
       );
 
+      if (error) {
+        return (
+          <Row>
+            <Col xl="12">
+              <p>There was an error fetching the blog posts</p>
+            </Col>
+          </Row>
+        );
+      }
       return (
         <Row>
           {data &&
