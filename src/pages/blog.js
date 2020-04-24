@@ -175,6 +175,9 @@ function Blog() {
             display: flex;
             justify-content: center;
           }
+          p {
+            text-align: center;
+          }
         `}
       </style>
       <style jsx global>
@@ -198,9 +201,6 @@ function Blog() {
           .card-preview-text ol, .card-preview-text li {
             list-style: none;
           }
-          p {
-            text-align: center;
-          } 
         `}
       </style>
     </Layout>
