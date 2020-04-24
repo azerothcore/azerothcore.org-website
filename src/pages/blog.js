@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { request } from 'graphql-request';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -42,6 +42,7 @@ query Posts($first: Int, $after: String) {
   }
 }`;
 function Blog() {
+  const [errorOnFetch, setErrorOnFetch] = useState(false);
   const [ref, inView, entry] = useInView({
     rootMargin: '-50px 0px',
   });
@@ -59,13 +60,7 @@ function Blog() {
       );
 
       if (error) {
-        return (
-          <Row>
-            <Col xl="12">
-              <p>There was an error fetching the blog posts</p>
-            </Col>
-          </Row>
-        );
+        setErrorOnFetch(true);
       }
       return (
         <Row>
@@ -119,9 +114,6 @@ function Blog() {
                 margin-top: 0.2rem;
                 margin-bottom: 0.7rem;
               }
-              p {
-                text-align: center;
-              }
             `}
           </style>
         </Row>
@@ -142,10 +134,16 @@ function Blog() {
   );
 
   React.useEffect(() => {
-    if (inView && pages.length > 0 && !isReachingEnd && !isLoadingMore) {
+    if (
+      inView &&
+      pages.length > 0 &&
+      !isReachingEnd &&
+      !isLoadingMore &&
+      !errorOnFetch
+    ) {
       loadMore();
     }
-  }, [inView, pages, isLoadingMore, isReachingEnd]);
+  }, [inView, pages, isLoadingMore, isReachingEnd, errorOnFetch]);
   return (
     <Layout>
       <div className="postlist-container">
@@ -157,11 +155,14 @@ function Blog() {
                 {!isReachingEnd && !isLoadingMore && (
                   <Button onClick={loadMore}>Load more</Button>
                 )}
-                {isLoadingMore && (
+                {isLoadingMore && !errorOnFetch && (
                   <Spinner
                     style={{ width: '3rem', height: '3rem' }}
                     type="grow"
                   />
+                )}
+                {errorOnFetch && (
+                  <p>There was an error fetching the blog posts</p>
                 )}
               </div>
             </Col>
@@ -196,6 +197,9 @@ function Blog() {
           }
           .card-preview-text ol, .card-preview-text li {
             list-style: none;
+          }
+          p {
+            text-align: center;
           } 
         `}
       </style>
