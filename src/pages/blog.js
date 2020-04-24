@@ -2,6 +2,7 @@ import { format, parseISO } from 'date-fns';
 import { request } from 'graphql-request';
 import Link from 'next/link';
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import {
   Button,
@@ -12,21 +13,21 @@ import {
   Col,
   Container,
   Row,
+  Spinner
 } from 'reactstrap';
-import useSWR from 'swr';
+import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
 import { getPreviewText } from '../utils/functions';
 
 const API = 'http://azerothcore.altervista.org/wp/graphql';
-const fetcher = query => request(API, query);
+const fetcher = (query, variables) => request(API, query, variables);
+
 const query = `
-query Posts {
-  posts {
+query Posts($first: Int, $after: String) {
+  posts(first: $first, after: $after) {
     pageInfo {
       endCursor
       hasNextPage
-      hasPreviousPage
-      startCursor
     }
     nodes {
       date
@@ -41,66 +42,128 @@ query Posts {
   }
 }`;
 function Blog() {
-  const { data, error } = useSWR(query, fetcher);
+  const [ref, inView, entry] = useInView({
+    rootMargin: '-50px 0px',
+  });
 
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
+    // page key
+    'blog-posts',
+
+    // page component
+    ({ offset, withSWR }) => {
+      const { data } = withSWR(
+        useSWR([query, offset], (q, cursor) =>
+          fetcher(q, { first: 3, after: cursor }),
+        ),
+      );
+
+      return (
+        <Row>
+          {data &&
+            data.posts.nodes.map(post => {
+              return (
+                <Col lg="12" key={post.id}>
+                  <div className="post-card-container">
+                    <Card className="post-card" body>
+                      <CardTitle className="post-card-title">
+                        <h3>{post.title}</h3>
+                      </CardTitle>
+                      <CardSubtitle className="post-card-subtitle">
+                        <span>{`${post.author.name} | ${format(
+                          parseISO(post.date),
+                          'dd LLLL yyyy',
+                        )}`}</span>
+                      </CardSubtitle>
+                      <hr />
+                      <CardText>
+                        <div className="card-preview-text">
+                          <ReactMarkdown
+                            source={getPreviewText(post.content, 300)}
+                            escapeHtml={false}
+                          />
+                        </div>
+                      </CardText>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                      >
+                        <Button className="post-card-button">
+                          Read the post
+                        </Button>
+                      </Link>
+                    </Card>
+                  </div>
+                </Col>
+              );
+            })}
+          <style jsx>
+            {`
+              .post-card-container {
+                padding: 20px;
+              }
+              h3 {
+                font-size: 1.35rem;
+                margin-bottom: 0.3rem;
+              }
+              hr {
+                margin-top: 0.2rem;
+                margin-bottom: 0.7rem;
+              }
+              p {
+                text-align: center;
+              }
+            `}
+          </style>
+        </Row>
+      );
+    },
+
+    // get next page's offset from the index of current page
+    SWR => {
+      // there's no next page
+      if (SWR.data && !SWR.data.posts.pageInfo.hasNextPage) return null;
+
+      // offset = pageCount × pageSize
+      return SWR.data.posts.pageInfo.endCursor;
+    },
+
+    // deps of the page component
+    [],
+  );
+
+  React.useEffect(() => {
+    if (inView && pages.length > 0 && !isReachingEnd && !isLoadingMore) {
+      loadMore();
+    }
+  }, [inView, pages, isLoadingMore, isReachingEnd]);
   return (
     <Layout>
-      {error && <div>There was an error while fetching the blog posts</div>}
       <div className="postlist-container">
         <Container>
+          {pages}
           <Row>
-            {data &&
-              data.posts.nodes.map(post => {
-                return (
-                  <Col lg="12" key={post.id}>
-                    <div className="post-card-container">
-                      <Card className="post-card" body>
-                        <CardTitle className="post-card-title">
-                          <h3>{post.title}</h3>
-                        </CardTitle>
-                        <CardSubtitle className="post-card-subtitle">
-                          <span>{`${post.author.name} | ${format(
-                            parseISO(post.date),
-                            'dd LLLL yyyy',
-                          )}`}</span>
-                        </CardSubtitle>
-                        <hr />
-                        <CardText>
-                          <div className="card-preview-text">
-                            <ReactMarkdown
-                              source={getPreviewText(post.content, 300)}
-                              escapeHtml={false}
-                            />
-                          </div>
-                        </CardText>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
-                        >
-                          <Button className="post-card-button">
-                            Read the post
-                          </Button>
-                        </Link>
-                      </Card>
-                    </div>
-                  </Col>
-                );
-              })}
+            <Col>
+              <div className="load-more" ref={ref}>
+                {!isReachingEnd && !isLoadingMore && (
+                  <Button onClick={loadMore}>Load more</Button>
+                )}
+                {isLoadingMore && (
+                  <Spinner
+                    style={{ width: '3rem', height: '3rem' }}
+                    type="grow"
+                  />
+                )}
+              </div>
+            </Col>
           </Row>
         </Container>
       </div>
       <style jsx>
         {`
-          .post-card-container {
-            padding: 20px;
-          }
-          h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.3rem;
-          }
-          hr {
-            margin-top: 0.2rem;
-            margin-bottom: 0.7rem;
+          .load-more {
+            display: flex;
+            justify-content: center;
           }
         `}
       </style>
