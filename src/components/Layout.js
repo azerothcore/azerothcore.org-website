@@ -45,7 +45,7 @@ library.add(
   faCubes,
   faGamepad,
   faCheckCircle,
-  faCogs,
+  faCogs
 );
 
 const Layout = ({ children, title, lead, page }) => (
@@ -172,7 +172,7 @@ const Layout = ({ children, title, lead, page }) => (
           margin-bottom: 0;
           list-style: none;
         }
-        @media (max-width: 860px) {
+        @media (max-width: 991px) {
           .social-button-container {
             display: flex;
           }

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {
   Collapse,
@@ -21,6 +22,10 @@ const RefNavbarBrand = React.forwardRef((props, ref) => {
     </a>
   );
 });
+
+RefNavbarBrand.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -48,7 +53,7 @@ const Header = () => {
                   scrollPosition > 50 ? '#270c0c' : 'transparent',
               }
         }
-        expand="md"
+        expand="lg"
         fixed="top"
         id="navbar"
       >
@@ -87,17 +92,6 @@ const Header = () => {
                   <NavLink href="https://github.com/azerothcore/forum/issues/">
                     <FontAwesomeIcon width="0" icon="newspaper" /> Forum
                   </NavLink>
-                </DropdownItem>
-                <DropdownItem tag="li">
-                  <Link
-                    href="/blog"
-                    as={`${process.env.BACKEND_URL}/blog`}
-                    passHref
-                  >
-                    <NavLink>
-                      <FontAwesomeIcon width="0" icon="rss" /> Blog
-                    </NavLink>
-                  </Link>
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://stackoverflow.com/questions/tagged/azerothcore?sort=newest">
@@ -158,6 +152,17 @@ const Header = () => {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            <NavItem>
+              <Link
+                href="/blog"
+                as={`${process.env.BACKEND_URL}/blog`}
+                passHref
+              >
+                <NavLink>
+                  <FontAwesomeIcon width="0" icon="rss" /> Blog
+                </NavLink>
+              </Link>
+            </NavItem>
             <NavItem>
               <Link
                 href="/donators"
@@ -260,7 +265,7 @@ const Header = () => {
         .azth_main-nav > li > ul > li:hover a {
           color: #ffc2b3;
         }
-        @media (max-width: 860px) {
+        @media (max-width: 991px) {
           .azth_main-nav-social {
             display: none;
           }
