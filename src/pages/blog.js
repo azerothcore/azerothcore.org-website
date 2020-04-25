@@ -1,5 +1,3 @@
-import { format, parseISO } from 'date-fns';
-import { request } from 'graphql-request';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -12,14 +10,11 @@ import {
   Col,
   Container,
   Row,
-  Spinner
+  Spinner,
 } from 'reactstrap';
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
-import { getPreviewText } from '../utils/functions';
-
-const API = 'http://azerothcore.altervista.org/wp/graphql';
-const fetcher = (query, variables) => request(API, query, variables);
+import { getPreviewText, gqlFetcher, formatDate } from '../utils/functions';
 
 const query = `
 query Posts($first: Int, $after: String) {
@@ -54,8 +49,8 @@ function Blog() {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         useSWR([query, offset], (q, cursor) =>
-          fetcher(q, { first: 3, after: cursor }),
-        ),
+          gqlFetcher(q, { first: 3, after: cursor })
+        )
       );
 
       if (error) {
@@ -73,9 +68,8 @@ function Blog() {
                         <h3>{post.title}</h3>
                       </CardTitle>
                       <CardSubtitle className="post-card-subtitle">
-                        <span>{`${post.author.name} | ${format(
-                          parseISO(post.date),
-                          'dd LLLL yyyy',
+                        <span>{`${post.author.name} | ${formatDate(
+                          post.date
                         )}`}</span>
                       </CardSubtitle>
                       <hr />
@@ -132,7 +126,7 @@ function Blog() {
     },
 
     // deps of the page component
-    [],
+    []
   );
 
   React.useEffect(() => {

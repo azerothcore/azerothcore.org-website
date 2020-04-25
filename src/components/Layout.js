@@ -142,7 +142,7 @@ const Layout = ({ children, title, lead, page }) => (
               rgba(0, 0, 0, 0.6) 0%,
               rgba(0, 0, 0, 0.6) 100%
             ),
-            url(background.jpg);
+            url(/background.jpg);
           background-position: top;
           background-size: cover;
           background-repeat: no-repeat;
