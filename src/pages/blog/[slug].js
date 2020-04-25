@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import Router, { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
@@ -26,13 +26,21 @@ function Post() {
     gqlFetcher(q, { id: sl })
   );
 
+  useEffect(() => {
+    if (data && data.post === null) {
+      Router.push('/blog');
+    }
+  }, [data]);
+
   return (
     <Layout
       page="blog-post"
       lead={
-        data ? `${data.post.author.name} | ${formatDate(data.post.date)}` : ''
+        data && data.post
+          ? `${data.post.author.name} | ${formatDate(data.post.date)}`
+          : ''
       }
-      title={data ? data.post.title : ''}
+      title={data?.post?.title || 'AzerothCore Blog'}
     >
       <Container>
         <Row>
@@ -50,7 +58,12 @@ function Post() {
                 )}
               </div>
             )}
-            {data && (
+            {data && data.post === null && (
+              <div className="no-data-content">
+                <p>Post not found. Redirecting to the blog page</p>
+              </div>
+            )}
+            {data && data.post !== null && (
               <ReactMarkdown source={data.post.content} escapeHtml={false} />
             )}
           </Col>

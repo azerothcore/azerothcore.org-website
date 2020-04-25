@@ -16,7 +16,7 @@ export async function getStaticProps() {
 
   const featureDirectory = path.join(
     process.cwd(),
-    'src/data/homePageFeatures',
+    'src/data/homePageFeatures'
   );
   const pageFeatures = [];
   features.forEach(feature => {
@@ -41,7 +41,7 @@ export async function getStaticProps() {
 export default function Index({ pageFeatures }) {
   const { data, error } = useSWR(
     'https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15',
-    fetcher,
+    fetcher
   );
 
   return (
@@ -112,7 +112,7 @@ export default function Index({ pageFeatures }) {
                             >{`${cutString(commit.message)}`}</a>
                           </span>
                           <span className="github-time">{`${formatDistanceToNow(
-                            parseISO(commit.author.date),
+                            parseISO(commit.author.date)
                           )} ago`}</span>
                         </li>
                       );
@@ -195,6 +195,6 @@ Index.propTypes = {
       icon: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
       text: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-    }),
+    })
   ).isRequired,
 };

@@ -37,7 +37,7 @@ query Posts($first: Int, $after: String) {
 }`;
 function Blog() {
   const [errorOnFetch, setErrorOnFetch] = useState(false);
-  const [ref, inView, entry] = useInView({
+  const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
 
@@ -48,6 +48,7 @@ function Blog() {
     // page component
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         useSWR([query, offset], (q, cursor) =>
           gqlFetcher(q, { first: 3, after: cursor })
         )
@@ -139,7 +140,7 @@ function Blog() {
     ) {
       loadMore();
     }
-  }, [inView, pages, isLoadingMore, isReachingEnd, errorOnFetch]);
+  }, [inView, pages, isLoadingMore, isReachingEnd, errorOnFetch, loadMore]);
   return (
     <Layout
       page="blog"
