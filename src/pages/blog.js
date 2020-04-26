@@ -62,15 +62,17 @@ function Blog() {
                           />
                         </div>
                       </div>
-                      <LinkPrefetch
-                        href="/blog/[slug]"
-                        as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
-                        prepare={() => getCurrentPost(post.slug)}
-                      >
-                        <Button className="post-card-button">
-                          Read the post
-                        </Button>
-                      </LinkPrefetch>
+                      <div className="button-container">
+                        <LinkPrefetch
+                          href="/blog/[slug]"
+                          as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                          prepare={() => getCurrentPost(post.slug)}
+                        >
+                          <Button className="post-card-button">
+                            Read the post
+                          </Button>
+                        </LinkPrefetch>
+                      </div>
                     </Card>
                   </div>
                 </Col>
@@ -91,6 +93,10 @@ function Blog() {
               hr {
                 margin-top: 0.2rem;
                 margin-bottom: 0.7rem;
+              }
+              .button-container {
+                display: flex;
+                justify-content: flex-end;
               }
             `}
           </style>
