@@ -1,11 +1,20 @@
 import fetch from 'unfetch';
 import { request } from 'graphql-request';
 import { format, parseISO } from 'date-fns';
+import { mutate } from 'swr';
 
 export const fetcher = url => fetch(url).then(r => r.json());
 
 const API = 'http://azerothcore.altervista.org/wp/graphql';
 export const gqlFetcher = (query, variables) => request(API, query, variables);
+
+export function fetchAndCache(query, variables, key) {
+  mutate(
+    key,
+    gqlFetcher(query, variables).then(data => data),
+    false
+  );
+}
 
 export const cutString = (string, length = 60) => {
   if (string.length > length) {

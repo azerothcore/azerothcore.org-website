@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
@@ -15,6 +14,8 @@ import {
 import useSWR, { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
 import { getPreviewText, gqlFetcher, formatDate } from '../utils/functions';
+import { getCurrentPost } from '../utils/blog-hooks';
+import LinkPrefetch from '../components/LinkPrefetch';
 
 const query = `
 query Posts($first: Int, $after: String) {
@@ -82,14 +83,15 @@ function Blog() {
                           />
                         </div>
                       </div>
-                      <Link
-                        href={`/blog/${post.slug}`}
+                      <LinkPrefetch
+                        href="/blog/[slug]"
                         as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                        prepare={() => getCurrentPost(post.slug)}
                       >
                         <Button className="post-card-button">
                           Read the post
                         </Button>
-                      </Link>
+                      </LinkPrefetch>
                     </Card>
                   </div>
                 </Col>

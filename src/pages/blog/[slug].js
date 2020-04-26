@@ -1,36 +1,21 @@
 import React, { useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
-import useSWR from 'swr';
+import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import Layout from '../../components/Layout';
-import { gqlFetcher, formatDate } from '../../utils/functions';
-
-const query = `
-query Post($id: ID!) {
-  post(id: $id, idType: SLUG) {
-    author {
-      name
-    }
-    title
-    content(format: RENDERED)
-    date
-  }
-}
-`;
+import { formatDate } from '../../utils/functions';
+import { useCurrentPost } from '../../utils/blog-hooks';
 
 function Post() {
   const router = useRouter();
   const { slug } = router.query;
-  const { data, error } = useSWR([query, slug], (q, sl) =>
-    gqlFetcher(q, { id: sl })
-  );
+  const { data, error } = useCurrentPost(slug);
 
   useEffect(() => {
     if (data && data.post === null) {
-      Router.push('/blog');
+      router.push('/blog');
     }
-  }, [data]);
+  }, [data, router]);
 
   return (
     <Layout
@@ -40,7 +25,7 @@ function Post() {
           ? `${data.post.author.name} | ${formatDate(data.post.date)}`
           : ''
       }
-      title={data?.post?.title || 'AzerothCore Blog'}
+      title={data?.post?.title || ''}
     >
       <Container>
         <Row>
