@@ -11,31 +11,12 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
-import useSWR, { useSWRPages } from 'swr';
+import { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
-import { getPreviewText, gqlFetcher, formatDate } from '../utils/functions';
-import { getCurrentPost } from '../utils/blog-hooks';
+import { getPreviewText, formatDate } from '../utils/functions';
+import { usePostList, getCurrentPost } from '../utils/blog-hooks';
 import LinkPrefetch from '../components/LinkPrefetch';
 
-const query = `
-query Posts($first: Int, $after: String) {
-  posts(first: $first, after: $after) {
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
-    nodes {
-      date
-      title
-      slug
-      id
-      content(format: RENDERED)
-      author {
-        name
-      }
-    }
-  }
-}`;
 function Blog() {
   const [errorOnFetch, setErrorOnFetch] = useState(false);
   const [ref, inView] = useInView({
@@ -50,9 +31,7 @@ function Blog() {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useSWR([query, offset], (q, cursor) =>
-          gqlFetcher(q, { first: 3, after: cursor })
-        )
+        usePostList(offset)
       );
 
       if (error) {

@@ -21,3 +21,36 @@ export function useCurrentPost(slug) {
 export function getCurrentPost(slug) {
   return fetchAndCache(queryPost, { id: slug }, [queryPost, slug]);
 }
+
+const queryPostList = `
+query Posts($first: Int, $after: String) {
+  posts(first: $first, after: $after) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    nodes {
+      date
+      title
+      slug
+      id
+      content(format: RENDERED)
+      author {
+        name
+      }
+    }
+  }
+}`;
+
+export function usePostList(offset) {
+  return useSWR([queryPostList, offset], (q, cursor) =>
+    gqlFetcher(q, { first: 3, after: cursor })
+  );
+}
+
+export function getPostList() {
+  return fetchAndCache(queryPostList, { first: 3, after: null }, [
+    queryPostList,
+    null,
+  ]);
+}

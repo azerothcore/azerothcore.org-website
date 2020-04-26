@@ -14,6 +14,8 @@ import {
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
+import LinkPrefetch from './LinkPrefetch';
+import { getPostList } from '../utils/blog-hooks';
 
 const RefNavbarBrand = React.forwardRef((props, ref) => {
   return (
@@ -153,15 +155,15 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Link
+              <LinkPrefetch
                 href="/blog"
                 as={`${process.env.BACKEND_URL}/blog`}
+                prepare={getPostList}
                 passHref
+                className="nav-link"
               >
-                <NavLink>
-                  <FontAwesomeIcon width="0" icon="rss" /> Blog
-                </NavLink>
-              </Link>
+                <FontAwesomeIcon width="0" icon="rss" /> Blog
+              </LinkPrefetch>
             </NavItem>
             <NavItem>
               <Link
