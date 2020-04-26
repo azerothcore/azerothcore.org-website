@@ -25,7 +25,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Container } from 'reactstrap';
-import DiscordWidget from './DiscordWidget';
 
 library.add(
   fab,
@@ -129,7 +128,6 @@ const Layout = ({ children, title, lead, page }) => (
       </div>
       <div className="page-content">{children}</div>
     </div>
-    <DiscordWidget />
     <style jsx>
       {`
         .page-wrapper {
