@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import { SWRConfig } from 'swr';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import DiscordWidget from '../components/DiscordWidget';
+import Footer from '~/src/components/Footer';
+import Header from '~/src/components/Header';
+import DiscordWidget from '~/src/components/DiscordWidget';
 
 function MyApp({ Component, pageProps }) {
   return (

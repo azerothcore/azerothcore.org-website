@@ -5,12 +5,13 @@ import React from 'react';
 import { FacebookProvider, Page } from 'react-facebook';
 import { Col, Container, Row } from 'reactstrap';
 import useSWR from 'swr';
-import CardFeature from '../components/CardFeature';
-import Layout from '../components/Layout';
-import { cutString, fetcher } from '../utils/functions';
+import CardFeature from '~/src/components/CardFeature';
+import Layout from '~/src/components/Layout';
+import { cutString, fetcher } from '~/src/utils/functions';
 
 export async function getStaticProps() {
-  const features = (await import('../data/homePageFeatures/features')).default;
+  const features = (await import('~/src/data/homePageFeatures/features'))
+    .default;
   const fs = (await import('fs')).default;
   const path = (await import('path')).default;
 
@@ -18,6 +19,7 @@ export async function getStaticProps() {
     process.cwd(),
     'src/data/homePageFeatures'
   );
+
   const pageFeatures = [];
   features.forEach(feature => {
     const filePath = path.join(featureDirectory, feature.mdFileName);

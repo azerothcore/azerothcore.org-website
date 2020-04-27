@@ -15,7 +15,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import LinkPrefetch from './LinkPrefetch';
-import { getPostList } from '../utils/blog-hooks';
+import { getPostList } from '~/src/utils/blog-hooks';
 
 const RefNavbarBrand = React.forwardRef((props, ref) => {
   return (

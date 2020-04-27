@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../../components/Layout';
-import { formatDate } from '../../utils/functions';
-import { useCurrentPost } from '../../utils/blog-hooks';
+import Layout from '~/src/components/Layout';
+import { formatDate } from '~/src/utils/functions';
+import { useCurrentPost } from '~/src/utils/blog-hooks';
 
 function Post() {
   const router = useRouter();

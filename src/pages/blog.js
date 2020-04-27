@@ -12,10 +12,10 @@ import {
   Spinner,
 } from 'reactstrap';
 import { useSWRPages } from 'swr';
-import Layout from '../components/Layout';
-import { getPreviewText, formatDate } from '../utils/functions';
-import { usePostList, getCurrentPost } from '../utils/blog-hooks';
-import LinkPrefetch from '../components/LinkPrefetch';
+import Layout from '~/src/components/Layout';
+import { getPreviewText, formatDate } from '~/src/utils/functions';
+import { usePostList, getCurrentPost } from '~/src/utils/blog-hooks';
+import LinkPrefetch from '~/src/components/LinkPrefetch';
 
 function Blog() {
   const [errorOnFetch, setErrorOnFetch] = useState(false);
