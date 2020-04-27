@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 
 export const fetcher = url => fetch(url).then(r => r.json());
 
-const API = 'http://azerothcore.altervista.org/wp/graphql';
+const API = 'https://azerothcore.altervista.org/wp/graphql';
 export const gqlFetcher = (query, variables) => request(API, query, variables);
 
 export function fetchAndCache(query, variables, key) {
