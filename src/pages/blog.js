@@ -67,6 +67,7 @@ function Blog() {
                           href="/blog/[slug]"
                           as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
                           prepare={() => getCurrentPost(post.slug)}
+                          passHref
                         >
                           <Button className="post-card-button">
                             Read the post
