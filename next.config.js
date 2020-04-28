@@ -16,6 +16,5 @@ module.exports = withCSS({
 });
 
 module.exports = {
-  exportTrailingSlash: true,
   assetPrefix: !debug ? '/azerothcore.github.io/' : '',
 };
