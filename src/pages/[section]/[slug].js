@@ -9,12 +9,14 @@ import { useCurrentPost } from '../../utils/blog-hooks';
 function Post() {
   const router = useRouter();
   const { slug } = router.query;
-  console.log(router);
-  const pathParams = router.asPath
-    .split('/')
-    .filter(str => str.length > 0)
-    .slice(-2);
-  console.log(pathParams);
+
+  const pathParams =
+    typeof window !== 'undefined'
+      ? window.location.pathname
+          .split('/')
+          .filter(str => str.length > 0)
+          .slice(-2)
+      : [];
   const [component, compParameter] = pathParams;
 
   const { data, error } = useCurrentPost(slug || compParameter);
