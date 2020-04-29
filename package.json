@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "next export",
+    "export": "next export && cp out/index.html out/404.html",
     "analyze": "cross-env ANALYZE=true next build",
     "local": "cross-env NODE_ENV=local next build"
   },
@@ -32,6 +32,8 @@
     "react-facebook": "^8.1.4",
     "react-intersection-observer": "^8.26.1",
     "react-markdown": "^4.2.2",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
     "reactstrap": "^8.0.1",
     "swr": "^0.2.0",
     "unfetch": "^4.1.0"

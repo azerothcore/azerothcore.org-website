@@ -1,25 +1,16 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
-import Layout from '../../components/Layout';
-import { formatDate } from '../../utils/functions';
-import { useCurrentPost } from '../../utils/blog-hooks';
+import Layout from './Layout';
+import { formatDate } from '../utils/functions';
+import { useCurrentPost } from '../utils/blog-hooks';
 
-function Post() {
+function Post({ match }) {
+  const { slug } = match.params;
   const router = useRouter();
-  const { slug } = router.query;
-
-  const pathParams =
-    typeof window !== 'undefined'
-      ? window.location.pathname
-          .split('/')
-          .filter(str => str.length > 0)
-          .slice(-2)
-      : [];
-  const [component, compParameter] = pathParams;
-
-  const { data, error } = useCurrentPost(slug || compParameter);
+  const { data, error } = useCurrentPost(slug);
 
   useEffect(() => {
     if (data && data.post === null) {
@@ -76,5 +67,17 @@ function Post() {
     </Layout>
   );
 }
+
+Post.propTypes = {
+  slug: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({ slug: PropTypes.string }),
+  }),
+};
+
+Post.defaultProps = {
+  slug: '',
+  match: {},
+};
 
 export default Post;

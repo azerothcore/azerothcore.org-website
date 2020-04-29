@@ -1,8 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
+import { Link as RRLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function LinkPrefetch({ children, href, as, prepare, className, ...props }) {
+export function LinkPrefetch({
+  children,
+  href,
+  as,
+  prepare,
+  className,
+  ...props
+}) {
   return (
     <Link href={href} as={as} {...props}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -10,6 +18,14 @@ function LinkPrefetch({ children, href, as, prepare, className, ...props }) {
         {children}
       </a>
     </Link>
+  );
+}
+
+export function RRLinkPrefetch({ children, to, prepare }) {
+  return (
+    <RRLink to={to} onMouseEnter={() => prepare()}>
+      {children}
+    </RRLink>
   );
 }
 
@@ -25,4 +41,8 @@ LinkPrefetch.defaultProps = {
   className: '',
 };
 
-export default LinkPrefetch;
+RRLinkPrefetch.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+  prepare: PropTypes.func.isRequired,
+};
