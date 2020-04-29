@@ -64,7 +64,7 @@ function Blog() {
                       </div>
                       <div className="button-container">
                         <RRLinkPrefetch
-                          to={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                          to={`/blog/${post.slug}`}
                           prepare={() => getCurrentPost(post.slug)}
                         >
                           <Button className="post-card-button">
