@@ -17,7 +17,7 @@ export default App => {
         );
       }
       return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.BACKEND_URL}>
           <App {...this.props} />
         </BrowserRouter>
       );
