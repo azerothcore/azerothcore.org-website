@@ -21,9 +21,9 @@ export function LinkPrefetch({
   );
 }
 
-export function RRLinkPrefetch({ children, to, prepare }) {
+export function RRLinkPrefetch({ children, to, prepare, ...props }) {
   return (
-    <RRLink to={to} onMouseEnter={() => prepare()}>
+    <RRLink to={to} onMouseEnter={() => prepare()} {...props}>
       {children}
     </RRLink>
   );

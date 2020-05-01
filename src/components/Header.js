@@ -14,20 +14,9 @@ import {
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { LinkPrefetch } from './LinkPrefetch';
+import { Link as RRLink } from 'react-router-dom';
+import { RRLinkPrefetch } from './LinkPrefetch';
 import { getPostList } from '../utils/blog-hooks';
-
-const RefNavbarBrand = React.forwardRef((props, ref) => {
-  return (
-    <a className="navbar-brand" {...props} ref={ref}>
-      {props.children}
-    </a>
-  );
-});
-
-RefNavbarBrand.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -59,16 +48,18 @@ const Header = () => {
         fixed="top"
         id="navbar"
       >
-        <Link href="/" as={`${process.env.BACKEND_URL}/`} passHref>
-          <RefNavbarBrand style={{ fontWeight: 'bold', color: '#fff' }}>
-            <img
-              src={`${process.env.BACKEND_URL}/logo-small.png`}
-              alt="AzerothCore logo"
-              style={{ maxWidth: '24px' }}
-            />{' '}
-            AzerothCore
-          </RefNavbarBrand>
-        </Link>
+        <RRLink
+          to="/"
+          style={{ fontWeight: 'bold', color: '#fff' }}
+          className="navbar-brand"
+        >
+          <img
+            src={`${process.env.BACKEND_URL}/logo-small.png`}
+            alt="AzerothCore logo"
+            style={{ maxWidth: '24px' }}
+          />{' '}
+          AzerothCore
+        </RRLink>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon width="0" icon="bars" />
         </NavbarToggler>
@@ -155,14 +146,13 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <LinkPrefetch
-                href="/blog"
-                as={`${process.env.BACKEND_URL}/blog`}
+              <RRLinkPrefetch
+                to="/blog"
                 prepare={getPostList}
                 className="nav-link"
               >
                 <FontAwesomeIcon width="0" icon="rss" /> Blog
-              </LinkPrefetch>
+              </RRLinkPrefetch>
             </NavItem>
             <NavItem>
               <Link
