@@ -5,6 +5,7 @@ import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
 function getPath(path) {
+  console.log(process.env.BACKEND_URL);
   if (process.env.BACKEND_URL) {
     return path.replace(`/${process.env.BACKEND_URL}`, '');
   }
@@ -16,8 +17,8 @@ export default () => {
   const location = useLocation();
   const adaptedPath =
     typeof window !== 'undefined' ? getPath(window.location.pathname) : '';
+  console.log(adaptedPath);
   if (typeof window !== 'undefined') {
-    console.log(adaptedPath);
     console.log(window.location.pathname);
     console.log(location.pathname);
   }
