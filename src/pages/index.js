@@ -43,13 +43,13 @@ export default function Index({ pageFeatures }) {
     'https://api.github.com/repos/azerothcore/azerothcore-wotlk/commits?per_page=15',
     fetcher
   );
-  const feat = pageFeatures || [];
+
   return (
     <Layout>
       <div className="features-wrapper">
         <Container>
           <Row>
-            {feat.map(feature => (
+            {pageFeatures.map(feature => (
               <Col sm="6" lg="4" key={feature.id}>
                 <CardFeature
                   icon={feature.icon}

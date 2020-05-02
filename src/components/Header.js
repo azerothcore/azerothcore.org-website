@@ -14,8 +14,7 @@ import {
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { Link as RRLink } from 'react-router-dom';
-import { RRLinkPrefetch } from './LinkPrefetch';
+import { LinkPrefetch } from './LinkPrefetch';
 import { getPostList } from '../utils/blog-hooks';
 
 const Header = () => {
@@ -40,26 +39,26 @@ const Header = () => {
           isOpen
             ? { backgroundColor: '#270c0c' }
             : {
-                backgroundColor:
-                  scrollPosition > 50 ? '#270c0c' : 'transparent',
-              }
+              backgroundColor:
+                scrollPosition > 50 ? '#270c0c' : 'transparent',
+            }
         }
         expand="lg"
         fixed="top"
         id="navbar"
       >
-        <RRLink
-          to="/"
+        <Link
+          href="/"
           style={{ fontWeight: 'bold', color: '#fff' }}
           className="navbar-brand"
         >
-          <img
+          <a><img
             src={`${process.env.BACKEND_URL}/logo-small.png`}
             alt="AzerothCore logo"
             style={{ maxWidth: '24px' }}
           />{' '}
-          AzerothCore
-        </RRLink>
+          AzerothCore</a>
+        </Link>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon width="0" icon="bars" />
         </NavbarToggler>
@@ -146,13 +145,13 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <RRLinkPrefetch
-                to="/blog"
+              <LinkPrefetch
+                href="/blog"
                 prepare={getPostList}
                 className="nav-link"
               >
-                <FontAwesomeIcon width="0" icon="rss" /> Blog
-              </RRLinkPrefetch>
+                <><FontAwesomeIcon width="0" icon="rss" /> Blog</>
+              </LinkPrefetch>
             </NavItem>
             <NavItem>
               <Link
