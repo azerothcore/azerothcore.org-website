@@ -164,7 +164,7 @@ const Layout = ({ children, title, lead, page }) => (
           display: none;
         }
         .social-button_list {
-          display: flex;
+          display: none;
           flex-wrap: wrap;
           padding-left: 0;
           margin-bottom: 0;
@@ -173,6 +173,10 @@ const Layout = ({ children, title, lead, page }) => (
         @media (max-width: 991px) {
           .social-button-container {
             display: flex;
+          }
+          .social-button_list {
+            display: flex;
+            justify-content: center;
           }
           .page-header {
             padding-bottom: 25px;

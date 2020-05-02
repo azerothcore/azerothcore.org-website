@@ -15,7 +15,7 @@ import { useSWRPages } from 'swr';
 import Layout from '../components/Layout';
 import { getPreviewText, formatDate } from '../utils/functions';
 import { usePostList, getCurrentPost } from '../utils/blog-hooks';
-import { RRLinkPrefetch, LinkPrefetch } from '../components/LinkPrefetch';
+import { LinkPrefetch } from '../components/LinkPrefetch';
 
 function Blog() {
   const [errorOnFetch, setErrorOnFetch] = useState(false);
@@ -64,8 +64,9 @@ function Blog() {
                       </div>
                       <div className="button-container">
                         <LinkPrefetch
-                          href={`/[...dynamic]`}
-                          as={`${process.env.BACKEND_URL}/blog/${post.slug}`} passHref
+                          href="/[...dynamic]"
+                          as={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                          passHref
                           prefetch={false}
                           prepare={() => getCurrentPost(post.slug)}
                         >

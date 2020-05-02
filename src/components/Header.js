@@ -39,24 +39,26 @@ const Header = () => {
           isOpen
             ? { backgroundColor: '#270c0c' }
             : {
-              backgroundColor:
-                scrollPosition > 50 ? '#270c0c' : 'transparent',
-            }
+                backgroundColor:
+                  scrollPosition > 50 ? '#270c0c' : 'transparent',
+              }
         }
         expand="lg"
         fixed="top"
         id="navbar"
       >
-        <Link
-          href={`/`}
-          as={`${process.env.BACKEND_URL}/`}          
-        >
-          <a style={{ fontWeight: 'bold', color: '#fff' }} className="navbar-brand"><img
-            src={`${process.env.BACKEND_URL}/logo-small.png`}
-            alt="AzerothCore logo"
-            style={{ maxWidth: '24px' }}
-          />{' '}
-          AzerothCore</a>
+        <Link href="/" as={`${process.env.BACKEND_URL}/`}>
+          <a
+            style={{ fontWeight: 'bold', color: '#fff' }}
+            className="navbar-brand"
+          >
+            <img
+              src={`${process.env.BACKEND_URL}/logo-small.png`}
+              alt="AzerothCore logo"
+              style={{ maxWidth: '24px' }}
+            />{' '}
+            AzerothCore
+          </a>
         </Link>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon width="0" icon="bars" />
@@ -145,12 +147,13 @@ const Header = () => {
             </UncontrolledDropdown>
             <NavItem>
               <LinkPrefetch
-                href={`/blog`}
-                as={`${process.env.BACKEND_URL}/blog`} passHref
+                href="/blog"
+                as={`${process.env.BACKEND_URL}/blog`}
+                passHref
                 prepare={getPostList}
                 className="nav-link"
               >
-                <><FontAwesomeIcon width="0" icon="rss" /> Blog</>
+                <FontAwesomeIcon width="0" icon="rss" /> Blog
               </LinkPrefetch>
             </NavItem>
             <NavItem>
