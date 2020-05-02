@@ -48,7 +48,8 @@ const Header = () => {
         id="navbar"
       >
         <Link
-          href={`${process.env.BACKEND_URL}/`}
+          href={`/`}
+          as={`${process.env.BACKEND_URL}/`} passHref
           style={{ fontWeight: 'bold', color: '#fff' }}
           className="navbar-brand"
         >
@@ -146,7 +147,8 @@ const Header = () => {
             </UncontrolledDropdown>
             <NavItem>
               <LinkPrefetch
-                href={`${process.env.BACKEND_URL}/blog`}
+                href={`/blog`}
+                as={`${process.env.BACKEND_URL}/blog`} passHref
                 prepare={getPostList}
                 className="nav-link"
               >

@@ -64,7 +64,8 @@ function Blog() {
                       </div>
                       <div className="button-container">
                         <LinkPrefetch
-                          href={`${process.env.BACKEND_URL}/blog/${post.slug}`}
+                          href={`/blog/${post.slug}`}
+                          as={`${process.env.BACKEND_URL}/`} passHref
                           prepare={() => getCurrentPost(post.slug)}
                         >
                           <Button className="post-card-button">
