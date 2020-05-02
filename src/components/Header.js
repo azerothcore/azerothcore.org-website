@@ -49,11 +49,9 @@ const Header = () => {
       >
         <Link
           href={`/`}
-          as={`${process.env.BACKEND_URL}/`} passHref
-          style={{ fontWeight: 'bold', color: '#fff' }}
-          className="navbar-brand"
+          as={`${process.env.BACKEND_URL}/`}          
         >
-          <a><img
+          <a style={{ fontWeight: 'bold', color: '#fff' }} className="navbar-brand"><img
             src={`${process.env.BACKEND_URL}/logo-small.png`}
             alt="AzerothCore logo"
             style={{ maxWidth: '24px' }}
