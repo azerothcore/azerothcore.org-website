@@ -15,9 +15,7 @@ export default () => {
   const history = useHistory();
   const location = useLocation();
   const adaptedPath =
-    typeof window !== 'undefined'
-      ? getPath(window.location.pathname)
-      : window.location.pathname;
+    typeof window !== 'undefined' ? getPath(window.location.pathname) : '';
   if (typeof window !== 'undefined') {
     console.log(adaptedPath);
     console.log(window.location.pathname);
