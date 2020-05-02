@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "next export && cp out/index.html out/404.html",
+    "export": "next export && cp out/[...dynamic].html out/404.html",
     "analyze": "cross-env ANALYZE=true next build",
     "local": "cross-env NODE_ENV=local next build"
   },
