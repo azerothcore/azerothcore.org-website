@@ -16,6 +16,5 @@ module.exports = withCSS({
 });
 
 module.exports = {
-  assetPrefix: !debug ? '/azerothcore.github.io/' : '',
-  basePath: !debug ? '/azerothcore.github.io/' : ''
+  assetPrefix: !debug ? '/azerothcore.github.io/' : ''
 };
