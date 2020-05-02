@@ -11,7 +11,7 @@ export default App => {
       if (isServer) {
         const { StaticRouter } = require('react-router');
         return (
-          <StaticRouter location={this.props.router.asPath}>
+          <StaticRouter location={this.props.router.asPath} basename={process.env.BACKEND_URL}>
             <App {...this.props} />
           </StaticRouter>
         );
