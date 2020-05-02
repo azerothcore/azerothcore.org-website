@@ -5,10 +5,12 @@ import _NotFoundPage from "./_NotFoundPage"
 import _LoadingPage from "./_LoadingPage"
 
 export default () => {
-    let location = useLocation()
-
+    // at build time the page uses /[...dynamic] path to generate the
+    // static page for [...dynamic].js 
+    // in this case we must display a loading page instead
     return <Switch>
         <Route exact path="/blog/:slug" component={Post} />
-        <Route component={location.pathname === "/[...dynamic]" ? _LoadingPage : _NotFoundPage} />
+        <Route exact path="/[...dynamic]" component={_LoadingPage} />
+        <Route component={_NotFoundPage} />
     </Switch>
 }
