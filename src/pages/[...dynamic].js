@@ -4,20 +4,25 @@ import Post from '../components/Post';
 import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
+function getPushPath(path) {
+  return path.replace(`/${process.env.BACKEND_URL}`, '');
+}
+
 export default () => {
   const history = useHistory();
   const location = useLocation();
+  const prodLocation = process.env.BACKEND_URL + location.pathname;
   if (typeof window !== 'undefined') {
-    console.log(location);
+    console.log(prodLocation);
     console.log(window.location.pathname);
     console.log(location.pathname);
   }
-
   if (
     typeof window !== 'undefined' &&
-    location.pathname !== window.location.pathname
+    prodLocation !== window.location.pathname
   ) {
-    history.push(window.location.pathname);
+    const path = getPushPath(window.location.pathname);
+    history.push(path);
   }
   // at build time the page uses /[...dynamic] path to generate the
   // static page for [...dynamic].js
