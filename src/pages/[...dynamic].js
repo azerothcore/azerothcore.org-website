@@ -5,9 +5,11 @@ import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
 function getPath(path) {
-  console.log(process.env.BACKEND_URL);
-  if (process.env.BACKEND_URL) {
-    return path.replace(`/${process.env.BACKEND_URL}`, '');
+  console.log(`window path: ${path}`);
+  console.log(`process url: ${process.env.BACKEND_URL}`);
+  if (path.includes(process.env.BACKEND_URL)) {
+    console.log('inif');
+    return path.replace(`${process.env.BACKEND_URL}`, '');
   }
   return path;
 }
@@ -17,11 +19,8 @@ export default () => {
   const location = useLocation();
   const adaptedPath =
     typeof window !== 'undefined' ? getPath(window.location.pathname) : '';
-  console.log(adaptedPath);
-  if (typeof window !== 'undefined') {
-    console.log(window.location.pathname);
-    console.log(location.pathname);
-  }
+  console.log(`getPath result: ${adaptedPath}`);
+
   if (typeof window !== 'undefined' && location.pathname !== adaptedPath) {
     history.push(adaptedPath);
   }
