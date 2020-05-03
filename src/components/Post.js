@@ -7,15 +7,16 @@ import Layout from './Layout';
 import { formatDate } from '../utils/functions';
 import { useCurrentPost } from '../utils/blog-hooks';
 
-function Post({ match, history }) {
+function Post({ match }) {
   const { slug } = match.params;
+  const router = useRouter();
   const { data, error } = useCurrentPost(slug);
 
   useEffect(() => {
     if (data && data.post === null) {
-      history.push('/blog');
+      router.push('/blog');
     }
-  }, [data, history]);
+  }, [data, router]);
 
   return (
     <Layout
