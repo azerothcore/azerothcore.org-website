@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 
+const NOOP = () => {};
 export default function LinkPrefetch({
   children,
   href,
   as,
-  prepare,
+  prepare = NOOP,
   className,
   ...props
 }) {
+  const [fetched, setFetched] = useState(false);
+
+  const prefetchData = () => {
+    if (!fetched) {
+      prepare();
+      setFetched(true);
+    }
+  };
+
   return (
     <Link href={href} as={as} {...props}>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a className={className} onMouseEnter={() => prepare()}>
+      <a className={className} onMouseEnter={prefetchData}>
         {children}
       </a>
     </Link>
