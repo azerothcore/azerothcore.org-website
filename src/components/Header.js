@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import {
   Collapse,
@@ -48,6 +47,7 @@ const Header = () => {
         id="navbar"
       >
         <Link href="/" as={`${process.env.BACKEND_URL}/`}>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a
             style={{ fontWeight: 'bold', color: '#fff' }}
             className="navbar-brand"

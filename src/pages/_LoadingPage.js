@@ -1,15 +1,15 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Spinner } from 'reactstrap';
 import Layout from '../components/Layout';
 
 /* eslint-disable-next-line */
-export default function _NotFoundPage() {
+export default function _LoadingPage() {
   return (
     <Layout>
       <Container>
         <Row>
           <Col>
-            <h1 style={{ textAlign: 'center' }}>Loading...</h1>
+            <Spinner style={{ width: '3rem', height: '3rem' }} type="grow" />
           </Col>
         </Row>
       </Container>
