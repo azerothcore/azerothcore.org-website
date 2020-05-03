@@ -9,10 +9,20 @@ export default function _LoadingPage() {
       <Container>
         <Row>
           <Col>
-            <Spinner style={{ width: '3rem', height: '3rem' }} type="grow" />
+            <div>
+              <Spinner style={{ width: '3rem', height: '3rem' }} type="grow" />
+            </div>
           </Col>
         </Row>
       </Container>
+      <style jsx>
+        {`
+          div {
+            display: flex;
+            justify-content: center;
+          }
+        `}
+      </style>
     </Layout>
   );
 }
