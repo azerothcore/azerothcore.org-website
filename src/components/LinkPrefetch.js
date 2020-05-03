@@ -1,9 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { Link as RRLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export function LinkPrefetch({
+export default function LinkPrefetch({
   children,
   href,
   as,
@@ -21,14 +20,6 @@ export function LinkPrefetch({
   );
 }
 
-export function RRLinkPrefetch({ children, to, prepare, ...props }) {
-  return (
-    <RRLink to={to} onMouseEnter={() => prepare()} {...props}>
-      {children}
-    </RRLink>
-  );
-}
-
 LinkPrefetch.propTypes = {
   children: PropTypes.node.isRequired,
   href: PropTypes.string.isRequired,
@@ -39,10 +30,4 @@ LinkPrefetch.propTypes = {
 
 LinkPrefetch.defaultProps = {
   className: '',
-};
-
-RRLinkPrefetch.propTypes = {
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string.isRequired,
-  prepare: PropTypes.func.isRequired,
 };

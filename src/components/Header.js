@@ -13,7 +13,7 @@ import {
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { LinkPrefetch } from './LinkPrefetch';
+import LinkPrefetch from './LinkPrefetch';
 import { getPostList } from '../utils/blog-hooks';
 
 const Header = () => {
