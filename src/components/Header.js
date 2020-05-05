@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import LinkPrefetch from './LinkPrefetch';
 import { getPostList } from '../utils/blog-hooks';
+import { getTestimonialsList } from '../utils/testimonials-hooks';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -132,16 +133,15 @@ const Header = () => {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
-                  <Link
+                  <LinkPrefetch
                     href="/testimonials"
                     as={`${process.env.BACKEND_URL}/testimonials`}
                     passHref
+                    prepare={getTestimonialsList}
+                    className="nav-link"
                   >
-                    <NavLink>
-                      <FontAwesomeIcon width="0" icon="thumbs-up" />{' '}
-                      Testimonials
-                    </NavLink>
-                  </Link>
+                    <FontAwesomeIcon width="0" icon="thumbs-up" /> Testimonials
+                  </LinkPrefetch>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
