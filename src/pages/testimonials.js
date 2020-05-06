@@ -71,7 +71,7 @@ function Testimonials() {
                             <ReactMarkdown
                               source={
                                 testimonial.content
-                                  ? getPreviewText(testimonial.content, 150)
+                                  ? getPreviewText(testimonial.content, 100)
                                   : ''
                               }
                               escapeHtml={false}
