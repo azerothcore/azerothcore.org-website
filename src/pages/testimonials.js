@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Button,
   Card,
-  CardImg,
   CardTitle,
   Col,
   Container,
@@ -55,14 +54,14 @@ function Testimonials() {
               data.testimonials.nodes.map(testimonial => {
                 return (
                   <Col lg="6" md="6" xl="4" key={testimonial.id}>
-                    <div className="tesimonials-card-container">
+                    <div className="testimonials-card-container">
                       <Card className="post-card" body>
-                        <CardImg
-                          top
-                          width="100%"
-                          src={testimonial.featuredImage.sourceUrl}
-                          alt={testimonial.featuredImage.altText}
-                        />
+                        <div className="testimonial-image-container">
+                          <img
+                            src={testimonial.featuredImage.sourceUrl}
+                            alt={testimonial.featuredImage.altText}
+                          />
+                        </div>
                         <hr />
                         <CardTitle className="post-card-title">
                           <h3>{testimonial.title}</h3>
@@ -70,7 +69,11 @@ function Testimonials() {
                         <div className="card-text">
                           <div className="card-preview-text">
                             <ReactMarkdown
-                              source={getPreviewText(testimonial.content, 150)}
+                              source={
+                                testimonial.content
+                                  ? getPreviewText(testimonial.content, 150)
+                                  : ''
+                              }
                               escapeHtml={false}
                             />
                           </div>
@@ -107,7 +110,7 @@ function Testimonials() {
             text-align: center;
           }
           .testimonials-card-container {
-            padding: 20px;
+            padding: 10px;
           }
           .card-text {
             margin-bottom: 10px;
@@ -123,6 +126,17 @@ function Testimonials() {
           .button-container {
             display: flex;
             justify-content: stretch;
+          }
+          .testimonial-image-container {
+            height: 170px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          img {
+            width: auto;
+            max-height: 100%;
+            max-width: 100%;
           }
         `}
       </style>
