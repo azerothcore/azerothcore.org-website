@@ -3,7 +3,7 @@ import { gqlFetcher, fetchAndCache } from './functions';
 
 const queryTestimonialsList = `
 query Testimonials {
-  testimonials {
+  testimonials(where: {orderby: {field: TITLE, order: ASC}}) {
     nodes {
       id
       slug
