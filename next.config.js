@@ -16,5 +16,5 @@ module.exports = withCSS({
 });
 
 module.exports = {
-  assetPrefix: !debug ? '/azerothcore.github.io/' : ''
+  assetPrefix: !debug ? '/acore-web-platform/' : ''
 };
