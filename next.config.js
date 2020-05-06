@@ -16,5 +16,5 @@ module.exports = withCSS({
 });
 
 module.exports = {
-  assetPrefix: !debug ? '/acore-web-platform/' : ''
+  assetPrefix: !debug ? '/acore-pwa/' : '',
 };
