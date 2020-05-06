@@ -26,9 +26,9 @@ function Testimonials() {
     >
       <div className="testimonials-container">
         <Container>
-          <Row>
-            <Col>
-              {!data && (
+          {!data && (
+            <Row>
+              <Col>
                 <div className="no-data-content">
                   {error && <p>Error while fetching the testimonials</p>}
                   {!error && (
@@ -40,14 +40,15 @@ function Testimonials() {
                     </div>
                   )}
                 </div>
-              )}
-              {data && data.testimonials === null && (
-                <div className="no-data-content">
-                  <p>No testimonials found</p>
-                </div>
-              )}
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          )}
+          {data && data.testimonials === null && (
+            <div className="no-data-content">
+              <p>No testimonials found</p>
+            </div>
+          )}
+
           <Row>
             {data &&
               data.testimonials !== null &&
@@ -116,7 +117,7 @@ function Testimonials() {
             margin-bottom: 0.3rem;
           }
           hr {
-            margin-top: 0.2rem;
+            margin-top: 20px;
             margin-bottom: 0.7rem;
           }
           .button-container {
