@@ -9,10 +9,10 @@ import {
   Spinner,
 } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
-import Layout from '@/src/components/Layout';
-import { useTestimonialsList } from '@/src/utils/testimonials-hooks';
-import { getPreviewText } from '@/src/utils/functions';
-import LinkPrefetch from '@/src/components/LinkPrefetch';
+import Layout from '@/components/Layout';
+import { useTestimonialsList } from '@/utils/testimonials-hooks';
+import { getPreviewText } from '@/utils/functions';
+import LinkPrefetch from '@/components/LinkPrefetch';
 
 function Testimonials() {
   const { data, error } = useTestimonialsList();

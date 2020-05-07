@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Spinner } from 'reactstrap';
-import Layout from '@/src/components/Layout';
+import Layout from '@/components/Layout';
 
 /* eslint-disable-next-line */
 export default function _LoadingPage() {
