@@ -16,11 +16,11 @@ module.exports = withCSS({
 });
 
 module.exports = {
-  assetPrefix: !debug ? '/acore-pwa/' : '',
-};
-
-module.exports = {
   experimental: {
     jsconfigPaths: true,
   },
+};
+
+module.exports = {
+  assetPrefix: !debug ? '/acore-pwa/' : '',
 };
