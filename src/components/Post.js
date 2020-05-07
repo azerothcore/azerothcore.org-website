@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
+import { formatDate } from '@/src/utils/functions';
+import { useCurrentPost } from '@/src/utils/blog-hooks';
 import Layout from './Layout';
-import { formatDate } from '../utils/functions';
-import { useCurrentPost } from '../utils/blog-hooks';
 
 function Post({ match }) {
   const { slug } = match.params;

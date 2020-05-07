@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-import Post from '../components/Post';
+import Post from '@/src/components/Post';
 import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
