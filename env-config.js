@@ -1,6 +1,3 @@
-const prod =
-  process.env.NODE_ENV === 'production' && process.env.ANALYZE !== 'true';
-
 module.exports = {
-  'process.env.BACKEND_URL': prod ? '/acore-pwa' : '',
+  'process.env.BACKEND_URL': process.env.BASE_PATH || '',
 };
