@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "BASE_PATH=/acore-pwa next build",
+    "build": "next build",
     "start": "next start",
     "export": "next export && cp out/[...dynamic].html out/404.html",
     "analyze": "cross-env ANALYZE=true next build",
-    "build_local": "next build"
+    "build_local": "cross-env NODE_ENV=local next build"
   },
   "keywords": [],
   "author": "",
