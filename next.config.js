@@ -19,14 +19,15 @@ module.exports = withCSS({
 });
 
 try {
-  fs.unlinkSync('./pages')
+  fs.unlinkSync('./src/pages')
 } catch (e) { }
-fs.symlinkSync(`./src/themes/${conf.theme}`, './pages');
+// it's ./theme and not ./src/theme because it's relative to
+// ./src/pages
+fs.symlinkSync(`./themes/${conf.theme}`, './src/pages');
 
 module.exports = {
   webpack: (config, options) => {
     config.resolve.symlinks = false;
-    config.resolve.alias['@'] = path.resolve(__dirname);
     return config;
   },
   assetPrefix: !debug ? '/acore-pwa/' : '',
