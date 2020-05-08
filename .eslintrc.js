@@ -7,7 +7,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['json', 'import', 'jsdoc', 'jest', '@typescript-eslint'],
+  plugins: ['json', 'import', 'jsdoc', 'jest', '@typescript-eslint', 'react-hooks'],
   extends: [
     'eslint:recommended', // basic eslint rules
     "plugin:@typescript-eslint/eslint-recommended",
@@ -17,7 +17,8 @@ module.exports = {
     'plugin:jest/recommended', // jest support
     'plugin:jest/style', // style for jest files
     'plugin:jsdoc/recommended', // jsdoc rules to document code 
-    "prettier/react"
+    "prettier/react",
+    "plugin:react/recommended"
   ],
   parserOptions: {
     ecmaVersion: 2018,
@@ -29,6 +30,8 @@ module.exports = {
     // disable eslint jsdoc internal check, already done by "jsdoc" plugin
     'valid-jsdoc': 0,
     'max-len': 0, // disable max length check of code lines
+    'react-hooks/rules-of-hooks': "error",	
+    'react-hooks/exhaustive-deps': "warn",
   },
   settings: {
     jsdoc: {
