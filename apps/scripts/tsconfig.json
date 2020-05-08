@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "preserveSymlinks": true,
+        "maxNodeModuleJsDepth": 0,
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "module": "CommonJS",
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "references": [],
+    "exclude": [
+        "node_modules"
+    ]
+}

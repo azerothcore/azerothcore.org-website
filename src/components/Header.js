@@ -62,7 +62,7 @@ const Header = () => {
           </a>
         </Link>
         <NavbarToggler onClick={() => setOpen(!isOpen)}>
-          <FontAwesomeIcon width="0" icon="bars" />
+          <FontAwesomeIcon size="sm" icon="bars" />
         </NavbarToggler>
         <Collapse
           isOpen={isOpen}
@@ -72,25 +72,25 @@ const Header = () => {
           <Nav className="mr-auto azth_main-nav" navbar>
             <NavItem>
               <NavLink href="https://github.com/AzerothCore/">
-                <FontAwesomeIcon width="0" icon={['fab', 'github']} />{' '}
+                <FontAwesomeIcon size="sm" icon={['fab', 'github']} />{' '}
                 Repositories
               </NavLink>
             </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <FontAwesomeIcon width="0" icon="users" /> Community
+                <FontAwesomeIcon size="sm" icon="users" /> Community
               </DropdownToggle>
               <DropdownMenu tag="ul">
                 <DropdownItem tag="li">
                   <NavLink href="https://github.com/azerothcore/forum/issues/">
-                    <FontAwesomeIcon width="0" icon="newspaper" /> Forum
+                    <FontAwesomeIcon size="sm" icon="newspaper" /> Forum
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://stackoverflow.com/questions/tagged/azerothcore?sort=newest">
                     <FontAwesomeIcon
-                      width="0"
+                      size="sm"
                       icon={['fab', 'stack-overflow']}
                     />{' '}
                     StackOverflow
@@ -98,12 +98,12 @@ const Header = () => {
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://discord.gg/gkt4y2x">
-                    <FontAwesomeIcon width="0" icon="comments" /> Chat
+                    <FontAwesomeIcon size="sm" icon="comments" /> Chat
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem tag="li">
                   <NavLink href="https://www.bountysource.com/teams/azerothcore">
-                    <FontAwesomeIcon width="0" icon="dollar-sign" />{' '}
+                    <FontAwesomeIcon size="sm" icon="dollar-sign" />{' '}
                     Bountysource
                   </NavLink>
                 </DropdownItem>
@@ -116,19 +116,19 @@ const Header = () => {
                 passHref
               >
                 <NavLink>
-                  <FontAwesomeIcon width="0" icon="cloud-download-alt" />{' '}
+                  <FontAwesomeIcon size="sm" icon="cloud-download-alt" />{' '}
                   Modules
                 </NavLink>
               </Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <FontAwesomeIcon width="0" icon="info-circle" /> Info
+                <FontAwesomeIcon size="sm" icon="info-circle" /> Info
               </DropdownToggle>
               <DropdownMenu tag="ul">
                 <DropdownItem tag="li">
                   <NavLink href="https://github.com/azerothcore/forum/issues/">
-                    <FontAwesomeIcon width="0" icon={['fab', 'wikipedia-w']} />{' '}
+                    <FontAwesomeIcon size="sm" icon={['fab', 'wikipedia-w']} />{' '}
                     Wiki
                   </NavLink>
                 </DropdownItem>
@@ -140,7 +140,7 @@ const Header = () => {
                     prepare={getTestimonialsList}
                     className="nav-link"
                   >
-                    <FontAwesomeIcon width="0" icon="thumbs-up" /> Testimonials
+                    <FontAwesomeIcon size="sm" icon="thumbs-up" /> Testimonials
                   </LinkPrefetch>
                 </DropdownItem>
               </DropdownMenu>
@@ -153,7 +153,7 @@ const Header = () => {
                 prepare={getPostList}
                 className="nav-link"
               >
-                <FontAwesomeIcon width="0" icon="rss" /> Blog
+                <FontAwesomeIcon size="sm" icon="rss" /> Blog
               </LinkPrefetch>
             </NavItem>
             <NavItem>
@@ -163,7 +163,7 @@ const Header = () => {
                 passHref
               >
                 <NavLink>
-                  <FontAwesomeIcon width="0" icon="heart" /> Donations
+                  <FontAwesomeIcon size="sm" icon="heart" /> Donations
                 </NavLink>
               </Link>
             </NavItem>
@@ -174,7 +174,7 @@ const Header = () => {
                 className="nav-link_social"
                 href="https://www.facebook.com/AzerothCore/"
               >
-                <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
+                <FontAwesomeIcon size="sm" icon={['fab', 'facebook-f']} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -182,7 +182,7 @@ const Header = () => {
                 className="nav-link_social"
                 href="https://twitter.com/azeroth_core"
               >
-                <FontAwesomeIcon width="0" icon={['fab', 'twitter']} />
+                <FontAwesomeIcon size="sm" icon={['fab', 'twitter']} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -190,7 +190,7 @@ const Header = () => {
                 className="nav-link_social"
                 href="https://www.linkedin.com/company/azerothcore"
               >
-                <FontAwesomeIcon width="0" icon={['fab', 'linkedin-in']} />
+                <FontAwesomeIcon size="sm" icon={['fab', 'linkedin-in']} />
               </NavLink>
             </NavItem>
           </Nav>

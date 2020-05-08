@@ -19,7 +19,6 @@ function DiscordWidget() {
             src="https://discordapp.com/widget?id=217589275766685707&theme=dark"
             width="350"
             height="500"
-            allowtransparency="true"
             frameBorder="0"
           />
         </div>

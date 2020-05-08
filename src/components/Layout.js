@@ -70,7 +70,7 @@ const Layout = ({ children, title, lead, page }) => (
                 <Button size="lg" color="danger" className="btn-installation">
                   Installation instructions{' '}
                   <FontAwesomeIcon
-                    width="0"
+                    size="sm"
                     icon="angle-right"
                     className="btn-installation_icon"
                   />
@@ -103,7 +103,7 @@ const Layout = ({ children, title, lead, page }) => (
                   className="nav-link_social nav-link"
                   href="https://www.facebook.com/AzerothCore/"
                 >
-                  <FontAwesomeIcon width="0" icon={['fab', 'facebook-f']} />
+                  <FontAwesomeIcon size="sm" icon={['fab', 'facebook-f']} />
                 </a>
               </li>
               <li>
@@ -111,7 +111,7 @@ const Layout = ({ children, title, lead, page }) => (
                   className="nav-link_social nav-link"
                   href="https://twitter.com/azeroth_core"
                 >
-                  <FontAwesomeIcon width="0" icon={['fab', 'twitter']} />
+                  <FontAwesomeIcon size="sm" icon={['fab', 'twitter']} />
                 </a>
               </li>
               <li>
@@ -119,7 +119,7 @@ const Layout = ({ children, title, lead, page }) => (
                   className="nav-link_social nav-link"
                   href="https://www.linkedin.com/company/azerothcore"
                 >
-                  <FontAwesomeIcon width="0" icon={['fab', 'linkedin-in']} />
+                  <FontAwesomeIcon size="sm" icon={['fab', 'linkedin-in']} />
                 </a>
               </li>
             </ul>

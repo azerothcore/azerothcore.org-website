@@ -10,7 +10,7 @@ const Footer = () => {
       <Container>
         <p>
           {`© AzerothCore ${year} ● Brought to you with `}{' '}
-          <FontAwesomeIcon width="0" icon="heart" /> {` and C++`}
+          <FontAwesomeIcon size="sm" icon="heart" /> {` and C++`}
         </p>
         <Link href="/donators" as={`${process.env.BACKEND_URL}/donators`}>
           <img
@@ -20,7 +20,7 @@ const Footer = () => {
         </Link>
         <p className="last">
           {'Most webservices of AzerothCore are powered by '}{' '}
-          <FontAwesomeIcon width="0" icon={['fab', 'github']} />.
+          <FontAwesomeIcon size="sm" icon={['fab', 'github']} />.
           {`You can even edit this site sending a PR `}
           <a href="https://github.com/azerothcore/azerothcore.github.io">
             here

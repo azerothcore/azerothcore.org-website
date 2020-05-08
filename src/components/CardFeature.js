@@ -8,7 +8,6 @@ function CardFeature({ icon, title, text }) {
     <div className="card-feature-container">
       <div className="card-feature-title">
         <FontAwesomeIcon
-          width="0"
           icon={icon}
           className="card-feature-icon"
           size="lg"
