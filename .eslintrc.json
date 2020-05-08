@@ -15,15 +15,6 @@
     "jest": true,
     "node": true
   },
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "map": [
-          [ "@/*", "./src/*" ]
-        ]
-      }
-    }
-  },
   "rules": {
     "jsx-a11y/href-no-hash": ["off"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
@@ -54,5 +45,10 @@
         "objects": "always-multiline"
       }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
   }
 }

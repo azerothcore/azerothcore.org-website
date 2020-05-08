@@ -15,9 +15,3 @@ module.exports = withCSS({
 module.exports = {
   assetPrefix: process.env.BASE_PATH || '',
 };
-
-module.exports = {
-  experimental: {
-    jsconfigPaths: true,
-  },
-};
