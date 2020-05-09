@@ -10,7 +10,7 @@ const globalStyles = `
 `;
 
 export default class MyDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <html lang="en">
         <Head>

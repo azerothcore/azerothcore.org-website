@@ -4,14 +4,21 @@ import Post from '@/components/Post';
 import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
-function getPath(path) {
+/**
+ *
+ * Function that returns the correct path that react router will use when using github pages without a custom domain
+ *
+ * @param {string} path the actual path
+ * @returns {string} the new string that will be passed to react router
+ */
+function getPath(path: string): string {
   if (path.includes(process.env.BACKEND_URL)) {
     return path.replace(`${process.env.BACKEND_URL}`, '');
   }
   return path;
 }
 
-export default () => {
+const Dynamic: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const adaptedPath =
@@ -30,3 +37,5 @@ export default () => {
     </Switch>
   );
 };
+
+export default Dynamic;
