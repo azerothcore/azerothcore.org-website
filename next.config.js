@@ -20,10 +20,12 @@ module.exports = withCSS({
 
 try {
   fs.unlinkSync('./src/pages')
+  fs.unlinkSync('./public')
 } catch (e) { }
 // it's ./theme and not ./src/theme because it's relative to
 // ./src/pages
-fs.symlinkSync(`./themes/${conf.theme}`, './src/pages');
+fs.symlinkSync(`./themes/${conf.theme}/pages`, './src/pages');
+fs.symlinkSync(`./src/themes/${conf.theme}/public`, './public');
 
 module.exports = {
   webpack: (config, options) => {
