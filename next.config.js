@@ -1,6 +1,5 @@
 const withCSS = require('@zeit/next-css');
 const fs = require('fs');
-const path = require('path');
 const { conf } = require('./conf')
 
 const debug =
@@ -32,8 +31,8 @@ module.exports = {
     config.resolve.symlinks = false;
     return config;
   },
-  assetPrefix: !debug ? '/acore-pwa/' : '',
+  assetPrefix: !debug ? '' : '',
   env: {
-    'BACKEND_URL': !debug ? '/acore-pwa' : ''
+    'BACKEND_URL': ''
   }
 };
