@@ -1,6 +1,5 @@
 node_modules
 .next
 out
-pages
-src/pages
-public
+/src/pages
+/public
