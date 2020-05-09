@@ -12,13 +12,15 @@ module.exports = {
     'eslint:recommended', // basic eslint rules
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
     'google', // google style guide
+    "plugin:prettier/recommended",
     'plugin:jest/recommended', // jest support
     'plugin:jest/style', // style for jest files
     'plugin:jsdoc/recommended', // jsdoc rules to document code 
-    "prettier/react",
-    "plugin:react/recommended"
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+    'plugin:react/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2018,
@@ -39,5 +41,8 @@ module.exports = {
         object: 'Object',
       },
     },
+    react: {
+      version: 'detect'
+    }
   },
 };
