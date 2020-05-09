@@ -1,12 +1,9 @@
-# TODO: once the website is ready for production
-# edit the deploy stage, by letting it deploy the website on another repo
-
-name: github pages production
+name: github pages development
 
 on:
   push:
     branches:
-      - master
+      - development
 
 jobs:
   deploy:
