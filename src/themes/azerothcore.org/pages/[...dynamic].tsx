@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import Post from '@/components/Post';
+import Testimonial from '@/components/Testimonial';
 import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
@@ -32,6 +33,7 @@ const Dynamic: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/blog/:slug" component={Post} />
+      <Route exact path="/testimonials/:slug" component={Testimonial} />
       <Route exact path="/[...dynamic]" component={_LoadingPage} />
       <Route component={_NotFoundPage} />
     </Switch>

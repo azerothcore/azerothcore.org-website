@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Button,
   Card,
@@ -10,11 +10,14 @@ import {
 } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import Layout from '@/components/Layout';
-import { useTestimonialsList } from '@/utils/testimonials-hooks';
+import {
+  useTestimonialsList,
+  getCurrentTestimonial,
+} from '@/utils/testimonials-hooks';
 import { getPreviewText } from '@/utils/functions';
 import LinkPrefetch from '@/components/LinkPrefetch';
 
-function Testimonials() {
+const Testimonials: React.FC = () => {
   const { data, error } = useTestimonialsList();
 
   return (
@@ -85,7 +88,9 @@ function Testimonials() {
                             passHref
                             prefetch={false}
                             className="testimonials-link"
-                            // prepare={() => getCurrentPost(post.slug)}
+                            prepare={() =>
+                              getCurrentTestimonial(testimonial.slug)
+                            }
                           >
                             <Button className="post-card-button">
                               Read more
@@ -163,6 +168,6 @@ function Testimonials() {
       </style>
     </Layout>
   );
-}
+};
 
 export default Testimonials;
