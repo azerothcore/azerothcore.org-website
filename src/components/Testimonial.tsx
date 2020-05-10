@@ -4,8 +4,15 @@ import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import { useCurrentTestimonial } from '@/utils/testimonials-hooks';
 import Layout from './Layout';
+import { RouteComponentProps } from 'react-router-dom';
 
-const Testimonial: React.FC = ({ match }) => {
+type MatchParam = {
+  slug: string;
+};
+
+type MatchProps = RouteComponentProps<MatchParam>;
+
+const Testimonial: React.FC<MatchProps> = ({ match }) => {
   const { slug } = match.params;
   const router = useRouter();
   const { data, error } = useCurrentTestimonial(slug);

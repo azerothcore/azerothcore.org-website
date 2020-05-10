@@ -7,11 +7,7 @@ function CardFeature({ icon, title, text }) {
   return (
     <div className="card-feature-container">
       <div className="card-feature-title">
-        <FontAwesomeIcon
-          icon={icon}
-          className="card-feature-icon"
-          size="lg"
-        />
+        <FontAwesomeIcon icon={icon} className="card-feature-icon" size="lg" />
         <h3>{title}</h3>
       </div>
       <ReactMarkdown source={text} />

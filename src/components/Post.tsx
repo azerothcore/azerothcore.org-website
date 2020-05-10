@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Spinner } from 'reactstrap';
 import ReactMarkdown from 'react-markdown';
 import { formatDate } from '@/utils/functions';
 import { useCurrentPost } from '@/utils/blog-hooks';
 import Layout from './Layout';
+import { RouteComponentProps } from 'react-router-dom';
 
-function Post({ match }) {
+type MatchParam = {
+  slug: string;
+};
+
+type MatchProps = RouteComponentProps<MatchParam>;
+
+const Post: React.FC<MatchProps> = ({ match }) => {
   const { slug } = match.params;
   const router = useRouter();
   const { data, error } = useCurrentPost(slug);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (data && data.post === null) {
       router.push('/blog');
     }
@@ -66,18 +72,6 @@ function Post({ match }) {
       `}</style>
     </Layout>
   );
-}
-
-Post.propTypes = {
-  slug: PropTypes.string,
-  match: PropTypes.shape({
-    params: PropTypes.shape({ slug: PropTypes.string }),
-  }),
-};
-
-Post.defaultProps = {
-  slug: '',
-  match: {},
 };
 
 export default Post;

@@ -10,8 +10,7 @@ import Layout from '@/components/Layout';
 import { cutString, fetcher } from '@/utils/functions';
 
 export async function getStaticProps() {
-  const features = (await import('@/data/homePageFeatures/features'))
-    .default;
+  const features = (await import('@/data/homePageFeatures/features')).default;
   const fs = (await import('fs')).default;
   const path = (await import('path')).default;
 
@@ -84,7 +83,12 @@ export default function Index({ pageFeatures }) {
                 {data && (
                   <ul className="commits-list">
                     {data.map(commitObj => {
-                      const { author, commit, html_url, sha } = commitObj;
+                      const {
+                        author,
+                        commit,
+                        html_url: htmlUrl,
+                        sha,
+                      } = commitObj;
                       return (
                         <li key={sha}>
                           <img
@@ -107,7 +111,7 @@ export default function Index({ pageFeatures }) {
                           <span className="item-separator">committed</span>
                           <span className="github-link-container">
                             <a
-                              href={html_url}
+                              href={htmlUrl}
                               title={commit.message}
                               className="github-commit-link"
                             >{`${cutString(commit.message)}`}</a>

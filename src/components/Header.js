@@ -48,7 +48,6 @@ const Header = () => {
         id="navbar"
       >
         <Link href="/" as={`${process.env.BACKEND_URL}/`}>
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a
             style={{ fontWeight: 'bold', color: '#fff' }}
             className="navbar-brand"
