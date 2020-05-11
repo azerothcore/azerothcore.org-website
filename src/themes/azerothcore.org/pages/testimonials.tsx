@@ -119,6 +119,7 @@ const Testimonials: React.FC = () => {
           }
           .card-text {
             margin-bottom: 10px;
+            min-height: 72px;
           }
           h3 {
             font-size: 1.35rem;
@@ -155,6 +156,9 @@ const Testimonials: React.FC = () => {
           }
           .card-preview-text p {
             margin: 0;
+          }
+          .card-preview-text p::first-letter {
+            text-transform: uppercase;
           }
           .card-preview-text ol,
           .card-preview-text li {

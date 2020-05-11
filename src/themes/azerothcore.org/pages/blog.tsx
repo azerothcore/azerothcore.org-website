@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -20,8 +20,8 @@ import LinkPrefetch from '@/components/LinkPrefetch';
 /**
  *
  */
-function Blog() {
-  const [errorOnFetch, setErrorOnFetch] = useState(false);
+const Blog: React.FC = () => {
+  const [errorOnFetch, setErrorOnFetch] = React.useState(false);
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
@@ -192,6 +192,9 @@ function Blog() {
           .card-preview-text p {
             margin: 0;
           }
+          .card-preview-text p::first-letter {
+            text-transform: uppercase;
+          }
           .card-preview-text ol, .card-preview-text li {
             list-style: none;
           }
@@ -199,6 +202,6 @@ function Blog() {
       </style>
     </Layout>
   );
-}
+};
 
 export default Blog;
