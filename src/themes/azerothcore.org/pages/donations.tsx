@@ -13,30 +13,27 @@ const Donations: React.FC = () => {
         <Container>
           <Row>
             <Col>
-              <iframe src="https://azerothcore.altervista.org/wp/donations/145/"></iframe>
               <p>
                 Please, help the AzerothCore project to stay alive! We will use
                 your donation for the following reasons:
               </p>
-              <p>
-                <b>Fixed costs:</b>
-                <ol>
-                  <li>
-                    Pull Requests & Demo Server{' '}
-                    <strong>maintenance costs</strong> (~41€/month)
-                  </li>
-                  <li>Domain-related costs (~100€/year)</li>
-                </ol>
-                <b>Extra budget:</b>
-                <ol>
-                  <li>
-                    <strong>We will hire developers and place bounties</strong>{' '}
-                    on bountysource platform to complete the developing roadmap
-                    and fix critical bugs
-                  </li>
-                  <li>Licenses and software needed for our job.</li>
-                </ol>
-              </p>
+              <b>Fixed costs:</b>
+              <ol>
+                <li>
+                  Pull Requests & Demo Server <strong>maintenance costs</strong>{' '}
+                  (~41€/month)
+                </li>
+                <li>Domain-related costs (~100€/year)</li>
+              </ol>
+              <b>Extra budget:</b>
+              <ol>
+                <li>
+                  <strong>We will hire developers and place bounties</strong> on
+                  bountysource platform to complete the developing roadmap and
+                  fix critical bugs
+                </li>
+                <li>Licenses and software needed for our job.</li>
+              </ol>
               <p>
                 If all AzerothCore users will donate at least 10€, we can reach
                 our yearly goal to keep up the project active!
