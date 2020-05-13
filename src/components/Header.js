@@ -20,6 +20,9 @@ import { getTestimonialsList } from '../utils/testimonials-hooks';
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
   const [scrollPosition, readScrollPosition] = useState(0);
+  /**
+   *
+   */
   function getScrollPosition() {
     const actualPosition = window.scrollY;
     readScrollPosition(actualPosition);
@@ -157,8 +160,8 @@ const Header = () => {
             </NavItem>
             <NavItem>
               <Link
-                href="/donators"
-                as={`${process.env.BACKEND_URL}/donators`}
+                href="/donations"
+                as={`${process.env.BACKEND_URL}/donations`}
                 passHref
               >
                 <NavLink>
