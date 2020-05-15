@@ -1,10 +1,18 @@
 import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 
+const chatTheme = {
+  labels: {
+    text: {
+      fontSize: 12,
+    },
+  },
+};
+
 const data = [
   {
     id: 'pr-demo',
-    label: 'Pull Requests & Demo Server',
+    label: 'Demo Server & other maintenance costs',
     value: 492,
   },
   {
@@ -13,11 +21,15 @@ const data = [
     value: 100,
   },
   {
-    id: 'extra',
-    label: 'Extra budget',
+    id: 'dev-budget',
+    label: 'Development budget',
     value: 1500,
   },
 ];
+
+const valueTotal = data.reduce((a, b) => a + b.value, 0);
+
+const colors = ['#ca0000ba', '#f47560', '#2d41a68a'];
 
 const DonationPieChart: React.FC = () => (
   <>
@@ -25,14 +37,13 @@ const DonationPieChart: React.FC = () => (
       data={data}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
-      startAngle={10}
-      endAngle={260}
       padAngle={0.7}
       cornerRadius={3}
-      colors={['#ca0000ba', '#f47560', '#2d41a68a']}
+      colors={colors}
       borderWidth={1}
       borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
       radialLabel="label"
+      tooltipFormat={value => `${Math.round((value * 100) / valueTotal)}%`}
       radialLabelsSkipAngle={10}
       radialLabelsTextXOffset={6}
       radialLabelsTextColor="#333333"
@@ -43,16 +54,10 @@ const DonationPieChart: React.FC = () => (
       radialLabelsLinkColor={{ from: 'color' }}
       slicesLabelsSkipAngle={10}
       slicesLabelsTextColor="#333333"
+      sliceLabel={item => `${Math.round((item.value * 100) / valueTotal)}%`}
       animate={true}
+      theme={chatTheme}
     />
-    <style jsx global>{`
-      svg > g {
-        transform: translate(20px, 40px);
-      }
-      svg text {
-        font-size: 12px;
-      }
-    `}</style>
   </>
 );
 

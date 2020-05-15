@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '@/components/Layout';
-import { Container, Col, Row } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
 import DonationPieChart from '@/components/DonationPieChart';
 
 const Donations: React.FC = () => {
@@ -14,6 +14,20 @@ const Donations: React.FC = () => {
         <Container>
           <Row>
             <Col>
+              <div className="chart-container">
+                <DonationPieChart />
+              </div>
+              <div className="donation-button-container">
+                <a
+                  href="https://azerothcore.altervista.org/wp/donations/145/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Button size="lg" className="donation-button">
+                    Donate to the AzerothCore Project
+                  </Button>
+                </a>
+              </div>
               <p>
                 Please, help the AzerothCore project to stay alive! We will use
                 your donation for the following reasons:
@@ -21,12 +35,12 @@ const Donations: React.FC = () => {
               <b>Fixed costs:</b>
               <ol>
                 <li>
-                  Pull Requests & Demo Server <strong>maintenance costs</strong>{' '}
+                  Demo Server and other <strong>maintenance costs</strong>{' '}
                   (~41€/month)
                 </li>
                 <li>Domain-related costs (~100€/year)</li>
               </ol>
-              <b>Extra budget:</b>
+              <b>Development budget:</b>
               <ol>
                 <li>
                   <strong>We will hire developers and place bounties</strong> on
@@ -35,21 +49,6 @@ const Donations: React.FC = () => {
                 </li>
                 <li>Licenses and software needed for our job.</li>
               </ol>
-              <div className="chart-container">
-                <DonationPieChart />
-              </div>
-              <p>
-                While we work to integrate the donation system, you can donate
-                by clicking on the link below.
-                <br />
-                <a
-                  href="https://azerothcore.altervista.org/wp/donations/145/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Donate to the AzerothCore Project
-                </a>
-              </p>
               <p>
                 If all AzerothCore users will donate at least 10€, we can reach
                 our yearly goal to keep up the project active!
@@ -79,10 +78,33 @@ const Donations: React.FC = () => {
           .chart-container {
             height: 400px;
           }
-          @media (max-width: 769px) {
+          .donation-button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+          }
+          @media (max-width: 992px) {
             .chart-container {
-              height: 320px;
+              height: 350px;
             }
+          }
+        `}
+      </style>
+      <style jsx global>
+        {`
+          .donation-button {
+            background-image: linear-gradient(to bottom, #d90000, #610101);
+            border-color: #610101;
+          }
+          .donation-button:hover {
+            background-color: unset;
+            border-color: unset;
+          }
+          .donation-button:active:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+          }
+          .donation-button:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
           }
         `}
       </style>
