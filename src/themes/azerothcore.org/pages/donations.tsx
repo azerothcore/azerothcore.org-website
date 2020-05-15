@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Layout from '@/components/Layout';
-import { Container, Col, Row } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
+import DonationPieChart from '@/components/DonationPieChart';
 
 const Donations: React.FC = () => {
   return (
@@ -34,10 +35,29 @@ const Donations: React.FC = () => {
                 </li>
                 <li>Licenses and software needed for our job.</li>
               </ol>
+              <div className="chart-container">
+                <DonationPieChart />
+              </div>
+              <p>
+                While we work to integrate the donation system, you can donate
+                by clicking the button below.
+              </p>
+              <div className="donation-button-container">
+                <a
+                  href="https://azerothcore.altervista.org/wp/donations/145/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Button size="lg" className="donation-button">
+                    Donate to the AzerothCore Project
+                  </Button>
+                </a>
+              </div>
               <p>
                 If all AzerothCore users will donate at least 10€, we can reach
                 our yearly goal to keep up the project active!
               </p>
+
               <p>
                 <strong>
                   You will also receive the contributor level that allow you
@@ -59,9 +79,37 @@ const Donations: React.FC = () => {
           ul {
             padding-left: 17px;
           }
-          iframe {
-            width: 100%;
-            height: 600px;
+          .chart-container {
+            height: 400px;
+          }
+          .donation-button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+          }
+          @media (max-width: 769px) {
+            .chart-container {
+              height: 320px;
+            }
+          }
+        `}
+      </style>
+
+      <style jsx global>
+        {`
+          .donation-button {
+            background-image: linear-gradient(to bottom, #d90000, #610101);
+            border-color: #610101;
+          }
+          .donation-button:hover {
+            background-color: unset;
+            border-color: unset;
+          }
+          .donation-button:active:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+          }
+          .donation-button:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
           }
         `}
       </style>
