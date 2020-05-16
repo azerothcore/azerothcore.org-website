@@ -14,9 +14,7 @@ const Donations: React.FC = () => {
         <Container>
           <Row>
             <Col>
-              <div className="chart-container">
-                <DonationPieChart />
-              </div>
+              <DonationPieChart />
               <div className="donation-button-container">
                 <a
                   href="https://azerothcore.altervista.org/wp/donations/145/"
@@ -53,7 +51,6 @@ const Donations: React.FC = () => {
                 If all AzerothCore users will donate at least 10€, we can reach
                 our yearly goal to keep up the project active!
               </p>
-
               <p>
                 <strong>
                   You will also receive the contributor level that allow you
@@ -75,18 +72,10 @@ const Donations: React.FC = () => {
           ul {
             padding-left: 17px;
           }
-          .chart-container {
-            height: 400px;
-          }
           .donation-button-container {
             display: flex;
             justify-content: center;
             margin-bottom: 1rem;
-          }
-          @media (max-width: 992px) {
-            .chart-container {
-              height: 350px;
-            }
           }
         `}
       </style>
