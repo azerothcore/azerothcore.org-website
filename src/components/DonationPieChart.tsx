@@ -72,7 +72,7 @@ const DonationPieChart: React.FC = () => {
               <div
                 className="label-box"
                 style={{ backgroundColor: colors[index] }}
-              ></div>
+              />
               <div>{obj.label}</div>
             </div>
           ))}
