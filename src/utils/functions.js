@@ -8,12 +8,23 @@ export const fetcher = url => fetch(url).then(r => r.json());
 const API = 'https://azerothcore.altervista.org/wp/graphql';
 export const gqlFetcher = (query, variables) => request(API, query, variables);
 
-export function fetchAndCache(query, variables, key) {
-  mutate(
-    key,
-    gqlFetcher(query, variables).then(data => data),
-    false
-  );
+/**
+ * @param query
+ * @param variables
+ * @param key
+ * @param fetcherToUse
+ */
+export function fetchAndCache(
+  query,
+  variables,
+  key,
+  fetcherToUse = 'gqlFetcher'
+) {
+  const apiFetcher =
+    fetcherToUse === 'gqlFetcher'
+      ? gqlFetcher(query, variables).then(data => data)
+      : fetcher(query);
+  mutate(key, apiFetcher, false);
 }
 
 export const cutString = (string, length = 60) => {

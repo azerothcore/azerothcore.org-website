@@ -14,8 +14,9 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import LinkPrefetch from './LinkPrefetch';
-import { getPostList } from '../utils/blog-hooks';
-import { getTestimonialsList } from '../utils/testimonials-hooks';
+import { getPostList } from '@/utils/blog-hooks';
+import { getTestimonialsList } from '@/utils/testimonials-hooks';
+import { getDonations } from '@/utils/donation-hooks';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -159,15 +160,15 @@ const Header = () => {
               </LinkPrefetch>
             </NavItem>
             <NavItem>
-              <Link
+              <LinkPrefetch
                 href="/donations"
                 as={`${process.env.BACKEND_URL}/donations`}
                 passHref
+                prepare={getDonations}
+                className="nav-link"
               >
-                <NavLink>
-                  <FontAwesomeIcon size="sm" icon="heart" /> Donations
-                </NavLink>
-              </Link>
+                <FontAwesomeIcon size="sm" icon="heart" /> Donations
+              </LinkPrefetch>
             </NavItem>
           </Nav>
           <Nav className="ml-auto azth_main-nav-social">
