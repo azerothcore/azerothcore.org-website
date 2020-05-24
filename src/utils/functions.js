@@ -14,7 +14,7 @@ export const gqlFetcher = (query, variables) => request(API, query, variables);
  * @param key
  * @param fetcherToUse
  */
-export function fetchAndCache(
+export async function fetchAndCache(
   query,
   variables,
   key,
@@ -24,7 +24,8 @@ export function fetchAndCache(
     fetcherToUse === 'gqlFetcher'
       ? gqlFetcher(query, variables).then(data => data)
       : fetcher(query);
-  mutate(key, apiFetcher, false);
+  const response = await mutate(key, apiFetcher, false);
+  return response;
 }
 
 export const cutString = (string, length = 60) => {
