@@ -6,6 +6,8 @@ import DonationPieChart from '@/components/DonationPieChart';
 import { usePaginatedDonations } from '@/utils/donation-hooks';
 import { formatDate } from '@/utils/functions';
 
+const images = ['robot-base-1.png', 'robot-base-2.png', 'robot-base-3.png'];
+
 const Donations: React.FC = () => {
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
@@ -109,7 +111,9 @@ const Donations: React.FC = () => {
                       <Card className="donation-card" body>
                         <div className="card-image-container">
                           <img
-                            src={`${process.env.BACKEND_URL}/bot-avatar.png`}
+                            src={`${process.env.BACKEND_URL}/${
+                              images[(Math.random() * images.length) | 0]
+                            }`}
                             loading="lazy"
                             width="70px"
                             height="70px"
