@@ -47,10 +47,18 @@ const Donations: React.FC = () => {
                   </Button>
                 </a>
               </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <p>
                 Please, help the AzerothCore project to stay alive! We will use
                 your donation for the following reasons:
               </p>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12" sm="6">
               <b>Fixed costs:</b>
               <ol>
                 <li>
@@ -59,6 +67,8 @@ const Donations: React.FC = () => {
                 </li>
                 <li>Domain-related costs (~100€/year)</li>
               </ol>
+            </Col>
+            <Col xs="12" sm="6">
               <b>Development budget:</b>
               <ol>
                 <li>
@@ -68,6 +78,10 @@ const Donations: React.FC = () => {
                 </li>
                 <li>Licenses and software needed for our job.</li>
               </ol>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <p>
                 If all AzerothCore users will donate at least 10€, we can reach
                 our yearly goal to keep up the project active!
@@ -114,7 +128,7 @@ const Donations: React.FC = () => {
                             </li>
                             <li>
                               <span>Amount:</span>
-                              {` ${donation.total}`}
+                              {` €${donation.total}`}
                             </li>
                           </ul>
                         </div>
@@ -160,7 +174,7 @@ const Donations: React.FC = () => {
           .load-more {
             display: flex;
             justify-content: center;
-            margin-top: 10ox;
+            margin-top: 10px;
           }
           .error-fetch {
             text-align: center;

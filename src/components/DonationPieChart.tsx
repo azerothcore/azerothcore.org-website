@@ -2,6 +2,33 @@ import * as React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import { useMediaQuery } from 'react-responsive';
 
+/**
+ * Decimal adjustment of a number.
+ *
+ * @param {string}  type  The type of adjustment.
+ * @param {number}  value The number.
+ * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
+ * @returns {number} The adjusted value.
+ */
+function decimalAdjust(type, value, exp) {
+  // If the exp is undefined or zero...
+  if (typeof exp === 'undefined' || +exp === 0) {
+    return Math[type](value);
+  }
+  value = +value;
+  exp = +exp;
+  // If the value is not a number or the exp is not an integer...
+  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+    return NaN;
+  }
+  // Shift
+  value = value.toString().split('e');
+  value = Math[type](+(value[0] + 'e' + (value[1] ? +value[1] - exp : -exp)));
+  // Shift back
+  value = value.toString().split('e');
+  return +(value[0] + 'e' + (value[1] ? +value[1] + exp : exp));
+}
+
 const chatTheme = {
   labels: {
     text: {
@@ -48,7 +75,9 @@ const DonationPieChart: React.FC = () => {
           borderWidth={1}
           borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
           radialLabel="label"
-          tooltipFormat={value => `${Math.round((value * 100) / valueTotal)}%`}
+          tooltipFormat={value =>
+            `${decimalAdjust('round', (value * 100) / valueTotal, -1)}%`
+          }
           radialLabelsSkipAngle={10}
           enableRadialLabels={smallScreen ? false : true}
           radialLabelsTextXOffset={6}
@@ -60,7 +89,9 @@ const DonationPieChart: React.FC = () => {
           radialLabelsLinkColor={{ from: 'color' }}
           slicesLabelsSkipAngle={10}
           slicesLabelsTextColor="#333333"
-          sliceLabel={item => `${Math.round((item.value * 100) / valueTotal)}%`}
+          sliceLabel={item =>
+            `${decimalAdjust('round', (item.value * 100) / valueTotal, -1)}%`
+          }
           animate={true}
           theme={chatTheme}
         />
