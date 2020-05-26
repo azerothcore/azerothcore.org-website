@@ -144,9 +144,13 @@ const Donations: React.FC = () => {
           </Row>
           <Row>
             <Col>
-              <div className="load-more" ref={ref}>
-                {hasNextPage && !isLoading && (
-                  <Button onClick={loadMore}>Load more</Button>
+              <div className="fetch-info-container">
+                {hasNextPage && (
+                  <div className="load-more" ref={ref}>
+                    {!isLoading && (
+                      <Button onClick={loadMore}>Load more</Button>
+                    )}
+                  </div>
                 )}
                 {isLoading && !error && (
                   <Spinner
@@ -175,10 +179,14 @@ const Donations: React.FC = () => {
             justify-content: center;
             margin-bottom: 1rem;
           }
-          .load-more {
+          .fetch-info-container {
             display: flex;
             justify-content: center;
             margin-top: 10px;
+          }
+          .load-more {
+            display: flex;
+            justify-content: center;
           }
           .error-fetch {
             text-align: center;
