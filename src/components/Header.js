@@ -114,13 +114,13 @@ const Header = () => {
             </UncontrolledDropdown>
             <NavItem>
               <Link
-                href="/modules"
-                as={`${process.env.BACKEND_URL}/modules`}
+                href="/catalogue"
+                as={`${process.env.BACKEND_URL}/catalogue`}
                 passHref
               >
                 <NavLink>
                   <FontAwesomeIcon size="sm" icon="cloud-download-alt" />{' '}
-                  Modules
+                  Catalogue
                 </NavLink>
               </Link>
             </NavItem>
