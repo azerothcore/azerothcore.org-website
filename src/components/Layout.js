@@ -18,6 +18,7 @@ import {
   faRss,
   faThumbsUp,
   faUsers,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
@@ -44,7 +45,8 @@ library.add(
   faCubes,
   faGamepad,
   faCheckCircle,
-  faCogs
+  faCogs,
+  faSearch
 );
 
 const Layout = ({ children, title, lead, page }) => (

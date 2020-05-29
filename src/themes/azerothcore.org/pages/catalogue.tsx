@@ -9,8 +9,10 @@ import {
   TabContent,
   TabPane,
   Spinner,
+  Input,
 } from 'reactstrap';
 import { useSWRPages } from 'swr';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import Layout from '@/components/Layout';
@@ -31,6 +33,7 @@ const Catalogue: React.FC = () => {
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
+  const inputRef = React.useRef();
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
     // page key
     'catalogue-list',
@@ -196,13 +199,34 @@ const Catalogue: React.FC = () => {
         <Container>
           <Row>
             <Col xl="12">
-              <div>Search an item by name:</div>
+              <h3>Search an item by name:</h3>
             </Col>
             <Col xs="12" md="6">
-              <div>Input search</div>
+              <div className="input-search-container">
+                <div className="input-search-icon">
+                  <FontAwesomeIcon size="sm" icon="search" />
+                </div>
+                <Input
+                  type="search"
+                  name="search"
+                  id="search"
+                  className="module-search"
+                  placeholder="Search a module/tool by name"
+                  innerRef={inputRef}
+                />
+              </div>
             </Col>
             <Col xs="12" md="6">
-              <div>How to add new items</div>
+              <div className="submit-instructions">
+                <p>
+                  Want to submit your <strong>module</strong>? Check the
+                  instructions here
+                </p>
+                <p>
+                  Want to submit your <strong>lua script</strong>? Check the
+                  instructions here
+                </p>
+              </div>
             </Col>
           </Row>
           <Row>
@@ -244,8 +268,42 @@ const Catalogue: React.FC = () => {
           p {
             text-align: center;
           }
+          .submit-instructions {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px 15px;
+            border-radius: 0.25rem;
+          }
+          .submit-instructions p {
+            text-align: left;
+          }
+          .submit-instructions p:last-child {
+            margin-bottom: 0;
+          }
+          .input-search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .input-search-icon {
+            width: 42px;
+            height: 38px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem 0 0 0.25rem;
+          }
         `}
       </style>
+      <style jsx global>{`
+        .module-search {
+          border-radius: 0 0.25rem 0.25rem 0;
+          border-left: none;
+        }
+      `}</style>
     </Layout>
   );
 };
