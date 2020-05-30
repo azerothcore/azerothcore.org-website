@@ -30,10 +30,11 @@ const tabs = [
 const Catalogue: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState('all');
   const [errorOnFetch, setErrorOnFetch] = React.useState(false);
+  const [searchText, setSearchText] = React.useState('');
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>();
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
     // page key
     'catalogue-list',
@@ -42,8 +43,9 @@ const Catalogue: React.FC = () => {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useCatalogueList(offset)
+        useCatalogueList(offset, searchText)
       );
+      console.log(offset);
       console.log(data);
       if (error) {
         setErrorOnFetch(true);
@@ -53,7 +55,8 @@ const Catalogue: React.FC = () => {
           <TabPane tabId={activeTab}>
             <Row>
               {data &&
-                data.catalogueItems !== null &&
+              data.catalogueItems !== null &&
+              data.catalogueItems.nodes.length > 0 ? (
                 data.catalogueItems.nodes.map(item => {
                   return (
                     <Col lg="6" md="6" xl="6" key={item.databaseId}>
@@ -103,7 +106,19 @@ const Catalogue: React.FC = () => {
                       </div>
                     </Col>
                   );
-                })}
+                })
+              ) : (
+                <Col>
+                  <p className="no-data">
+                    {!isLoadingMore &&
+                      inputRef.current?.value.length > 0 &&
+                      'The search did not bring any results'}
+                    {!isLoadingMore &&
+                      inputRef.current?.value.length === 0 &&
+                      `There are no available items`}
+                  </p>
+                </Col>
+              )}
             </Row>
           </TabPane>
           <style jsx>
@@ -140,6 +155,9 @@ const Catalogue: React.FC = () => {
                 width: auto;
                 max-height: 100%;
                 max-width: 100%;
+              }
+              .no-data {
+                margin-top: 15px;
               }
             `}
           </style>
@@ -182,11 +200,22 @@ const Catalogue: React.FC = () => {
     },
 
     // deps of the page component
-    [activeTab]
+    [activeTab, searchText]
   );
 
   const toggle = newTab => {
     if (activeTab !== newTab) setActiveTab(newTab);
+  };
+
+  const updateSearchText = () => {
+    const text = inputRef.current.value;
+    setSearchText(text);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      updateSearchText();
+    }
   };
 
   return (
@@ -203,9 +232,12 @@ const Catalogue: React.FC = () => {
             </Col>
             <Col xs="12" md="6">
               <div className="input-search-container">
-                <div className="input-search-icon">
+                <button
+                  className="input-search-icon"
+                  onClick={updateSearchText}
+                >
                   <FontAwesomeIcon size="sm" icon="search" />
-                </div>
+                </button>
                 <Input
                   type="search"
                   name="search"
@@ -213,8 +245,10 @@ const Catalogue: React.FC = () => {
                   className="module-search"
                   placeholder="Search a module/tool by name"
                   innerRef={inputRef}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
+              <div className="submit-search-info">Press Enter to submit</div>
             </Col>
             <Col xs="12" md="6">
               <div className="submit-instructions">
@@ -264,6 +298,7 @@ const Catalogue: React.FC = () => {
           .load-more {
             display: flex;
             justify-content: center;
+            margin-top: 15px;
           }
           p {
             text-align: center;
@@ -295,6 +330,10 @@ const Catalogue: React.FC = () => {
             justify-content: center;
             border: 1px solid #ced4da;
             border-radius: 0.25rem 0 0 0.25rem;
+          }
+          .submit-search-info {
+            color: #868e96;
+            margin-top: 4px;
           }
         `}
       </style>
