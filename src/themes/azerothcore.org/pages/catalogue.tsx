@@ -6,35 +6,22 @@ import {
   Col,
   Container,
   Row,
-  TabContent,
-  TabPane,
   Spinner,
-  Input,
 } from 'reactstrap';
 import { useSWRPages } from 'swr';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import Layout from '@/components/Layout';
-import TabsNavigation from '@/components/TabsNavigation';
+import CatalogueFilters from '@/components/CatalogueFilters';
 import { useCatalogueList } from '@/utils/catalogue-hooks';
 import { getPreviewText } from '@/utils/functions';
 
-const tabs = [
-  { id: 'all', label: 'All Modules' },
-  { id: 'premium', label: 'Premium Modules' },
-  { id: 'tools', label: 'Tools' },
-  { id: 'lua-scripts', label: 'Lua scripts' },
-];
-
 const Catalogue: React.FC = () => {
-  const [activeTab, setActiveTab] = React.useState('all');
   const [errorOnFetch, setErrorOnFetch] = React.useState(false);
-  const [searchText, setSearchText] = React.useState('');
+  const [filters, setFilters] = React.useState({ search: '' });
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
-  const inputRef = React.useRef<HTMLInputElement>();
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
     // page key
     'catalogue-list',
@@ -43,7 +30,7 @@ const Catalogue: React.FC = () => {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useCatalogueList(offset, searchText)
+        useCatalogueList(offset, filters.search)
       );
       console.log(offset);
       console.log(data);
@@ -51,43 +38,42 @@ const Catalogue: React.FC = () => {
         setErrorOnFetch(true);
       }
       return (
-        <TabContent activeTab={activeTab}>
-          <TabPane tabId={activeTab}>
-            <Row>
-              {data &&
-              data.catalogueItems !== null &&
-              data.catalogueItems.nodes.length > 0 ? (
-                data.catalogueItems.nodes.map(item => {
-                  return (
-                    <Col lg="6" md="6" xl="6" key={item.databaseId}>
-                      <div className="testimonials-card-container">
-                        <Card className="post-card" body>
-                          <div className="testimonial-image-container">
-                            {item.featuredImage && (
-                              <img
-                                src={item.featuredImage.sourceUrl}
-                                alt={item.featuredImage.altText}
-                              />
-                            )}
+        <>
+          <Row>
+            {data &&
+            data.catalogueItems !== null &&
+            data.catalogueItems.nodes.length > 0 ? (
+              data.catalogueItems.nodes.map(item => {
+                return (
+                  <Col lg="6" md="6" xl="6" key={item.databaseId}>
+                    <div className="testimonials-card-container">
+                      <Card className="post-card" body>
+                        <div className="testimonial-image-container">
+                          {item.featuredImage && (
+                            <img
+                              src={item.featuredImage.sourceUrl}
+                              alt={item.featuredImage.altText}
+                            />
+                          )}
+                        </div>
+                        <hr />
+                        <CardTitle className="post-card-title">
+                          <h3>{item.title}</h3>
+                        </CardTitle>
+                        <div className="card-text">
+                          <div className="card-preview-text">
+                            <ReactMarkdown
+                              source={
+                                item.content
+                                  ? getPreviewText(item.content, 100)
+                                  : ''
+                              }
+                              escapeHtml={false}
+                            />
                           </div>
-                          <hr />
-                          <CardTitle className="post-card-title">
-                            <h3>{item.title}</h3>
-                          </CardTitle>
-                          <div className="card-text">
-                            <div className="card-preview-text">
-                              <ReactMarkdown
-                                source={
-                                  item.content
-                                    ? getPreviewText(item.content, 100)
-                                    : ''
-                                }
-                                escapeHtml={false}
-                              />
-                            </div>
-                          </div>
-                          <div className="button-container">
-                            {/* <LinkPrefetch
+                        </div>
+                        <div className="button-container">
+                          {/* <LinkPrefetch
                               href="/[...dynamic]"
                               as={`${process.env.BACKEND_URL}/catalogue/${item.slug}`}
                               passHref
@@ -101,26 +87,26 @@ const Catalogue: React.FC = () => {
                                 Read more
                               </Button>
                             </LinkPrefetch> */}
-                          </div>
-                        </Card>
-                      </div>
-                    </Col>
-                  );
-                })
-              ) : (
-                <Col>
-                  <p className="no-data">
-                    {!isLoadingMore &&
-                      inputRef.current?.value.length > 0 &&
-                      'The search did not bring any results'}
-                    {!isLoadingMore &&
-                      inputRef.current?.value.length === 0 &&
-                      `There are no available items`}
-                  </p>
-                </Col>
-              )}
-            </Row>
-          </TabPane>
+                        </div>
+                      </Card>
+                    </div>
+                  </Col>
+                );
+              })
+            ) : (
+              <Col>
+                <p className="no-data">
+                  {!isLoadingMore &&
+                    filters.search.length > 0 &&
+                    'The search did not bring any results'}
+                  {!isLoadingMore &&
+                    filters.search.length === 0 &&
+                    `There are no available items`}
+                </p>
+              </Col>
+            )}
+          </Row>
+
           <style jsx>
             {`
               p {
@@ -185,7 +171,7 @@ const Catalogue: React.FC = () => {
               }
             `}
           </style>
-        </TabContent>
+        </>
       );
     },
 
@@ -200,22 +186,12 @@ const Catalogue: React.FC = () => {
     },
 
     // deps of the page component
-    [activeTab, searchText]
+    [filters]
   );
 
-  const toggle = newTab => {
-    if (activeTab !== newTab) setActiveTab(newTab);
-  };
-
-  const updateSearchText = () => {
-    const text = inputRef.current.value;
-    setSearchText(text);
-  };
-
-  const handleKeyDown = e => {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      updateSearchText();
-    }
+  const handleSubmit = values => {
+    console.log(values);
+    setFilters(values);
   };
 
   return (
@@ -227,30 +203,10 @@ const Catalogue: React.FC = () => {
       <div className="catalogue-container">
         <Container>
           <Row>
-            <Col xl="12">
-              <h3>Search an item by name:</h3>
-            </Col>
             <Col xs="12" md="6">
-              <div className="input-search-container">
-                <button
-                  className="input-search-icon"
-                  onClick={updateSearchText}
-                >
-                  <FontAwesomeIcon size="sm" icon="search" />
-                </button>
-                <Input
-                  type="search"
-                  name="search"
-                  id="search"
-                  className="module-search"
-                  placeholder="Search a module/tool by name"
-                  innerRef={inputRef}
-                  onKeyDown={handleKeyDown}
-                />
-              </div>
-              <div className="submit-search-info">Press Enter to submit</div>
+              <CatalogueFilters handleSubmit={handleSubmit} />
             </Col>
-            <Col xs="12" md="6">
+            <Col xs="12" md="6" style={{ padding: '0 25px' }}>
               <div className="submit-instructions">
                 <p>
                   Want to submit your <strong>module</strong>? Check the
@@ -263,15 +219,7 @@ const Catalogue: React.FC = () => {
               </div>
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <TabsNavigation
-                tabs={tabs}
-                activeTab={activeTab}
-                toggle={toggle}
-              />
-            </Col>
-          </Row>
+
           {pages}
           <Row>
             <Col>
@@ -316,33 +264,8 @@ const Catalogue: React.FC = () => {
           .submit-instructions p:last-child {
             margin-bottom: 0;
           }
-          .input-search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .input-search-icon {
-            width: 42px;
-            height: 38px;
-            background-color: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem 0 0 0.25rem;
-          }
-          .submit-search-info {
-            color: #868e96;
-            margin-top: 4px;
-          }
         `}
       </style>
-      <style jsx global>{`
-        .module-search {
-          border-radius: 0 0.25rem 0.25rem 0;
-          border-left: none;
-        }
-      `}</style>
     </Layout>
   );
 };
