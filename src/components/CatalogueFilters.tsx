@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Input } from 'reactstrap';
 import Select from 'react-select';
+import { useOutsideClick } from '@/utils/useOutsideClick';
 
 const categories = [
   { value: 'AzerothCore Module', label: 'Modules' },
@@ -19,6 +20,9 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   const [isOpen, setIsOpen] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>();
 
+  const filtersRef = React.useRef();
+  useOutsideClick(filtersRef, () => setIsOpen(false));
+
   const handleSubmitButton = () => {
     const search = inputRef.current.value;
     const filters = { search };
@@ -28,7 +32,7 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   return (
     <>
       <div className="filters-container">
-        <div className="filters-content">
+        <div className="filters-content" ref={filtersRef}>
           <Button onClick={() => setIsOpen(!isOpen)}>Filters</Button>
           {isOpen && (
             <div className="filter-box">
@@ -66,10 +70,13 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
           .acore-multi-select {
             color: #495057;
           }
-          .acore-multi-select .select__control--is-focused {
+          .acore-multi-select .select__control.select__control--is-focused {
             border-color: #80bdff;
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          }
+          .acore-multi-select .select__control {
+            border: 1px solid #ced4da;
           }
           .acore-multi-select .select__control:focus {
             border-color: #80bdff;
