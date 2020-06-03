@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Input } from 'reactstrap';
 import Select from 'react-select';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useOutsideClick } from '@/utils/useOutsideClick';
 
 const categoriesAdapter = [
@@ -18,11 +19,13 @@ type Category = {
 type CatalogueFiltersProps = {
   handleSubmit: Function;
   categories: Array<Category>;
+  isDesktop: boolean;
 };
 
 const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   handleSubmit,
   categories,
+  isDesktop,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedCategories, setSelectedCategories] = React.useState([]);
@@ -34,16 +37,22 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   const handleSubmitButton = () => {
     const categoryIn = selectedCategories
       ? selectedCategories.map(opt => opt.value)
-      : null;
+      : [];
     const filters = { search: searchInput.trim(), categoryIn };
     handleSubmit(filters);
     setIsOpen(false);
   };
 
+  const removeFilters = () => {
+    setSelectedCategories([]);
+    setSearchInput('');
+    handleSubmitButton();
+  };
+
   const selectableCategories = React.useMemo(() => {
     const selectable = categories.map(obj => {
       const adapter = categoriesAdapter.find(cat => cat.name === obj.name);
-      return { ...adapter, ...obj, value: obj.databaseId };
+      return { label: adapter.label, value: obj.databaseId };
     });
     return selectable;
   }, [categories]);
@@ -52,8 +61,12 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
     <>
       <div className="filters-container">
         <div className="filters-content" ref={filtersRef}>
-          <Button onClick={() => setIsOpen(!isOpen)}>Filters</Button>
-          {isOpen && (
+          {!isDesktop && (
+            <Button onClick={() => setIsOpen(!isOpen)}>
+              <FontAwesomeIcon size="sm" icon="filter" /> Filters
+            </Button>
+          )}
+          {(isOpen || isDesktop) && (
             <div className="filter-box">
               <div className="filter-item">
                 <label htmlFor="search">Name:</label>
@@ -84,6 +97,11 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
               <div className="filter-item submit-button">
                 <Button onClick={handleSubmitButton}>Apply filters</Button>
               </div>
+              <div className="filter-item reset-button">
+                <Button color="danger" onClick={removeFilters}>
+                  Remove filters
+                </Button>
+              </div>
             </div>
           )}
         </div>
@@ -113,26 +131,29 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
           .filters-container {
             display: flex;
             align-items: flex-start;
-            justify-content: flex-end;
+            justify-content: ${isDesktop ? 'flex-start' : 'flex-end'};
             height: 100%;
             padding: 0 10px;
             flex-direction: column;
           }
           .filters-content {
-            position: relative;
+            position: ${isDesktop ? 'sticky' : 'relative'};
+            top: ${isDesktop ? '70px' : '0'};
           }
           .filter-box {
             width: 300px;
             padding: 15px;
             background-color: #fff;
-            position: absolute;
+            position: ${isDesktop ? 'static' : 'absolute'};
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             top: 40px;
             left: 0;
             z-index: 1;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: ${isDesktop ? 'none' : '0 3px 8px rgba(0, 0, 0, 0.25)'};
+            border: ${isDesktop ? '1px solid rgba(0, 0, 0, 0.125)' : 'none'};
+            border-radius: 0.25rem;
           }
           .filter-item {
             display: flex;
@@ -144,6 +165,9 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
           }
           .filter-item:last-child {
             margin-bottom: 0;
+          }
+          .submit-button {
+            margin-bottom: 0.5rem;
           }
         `}
       </style>

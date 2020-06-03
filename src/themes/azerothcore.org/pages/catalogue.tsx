@@ -16,6 +16,7 @@ import CatalogueFilters from '@/components/CatalogueFilters';
 import { useCatalogueList } from '@/utils/catalogue-hooks';
 import { getPreviewText } from '@/utils/functions';
 import { useCategories } from '@/utils/categories-hooks';
+import { useMediaQuery } from 'react-responsive';
 
 const Catalogue: React.FC = () => {
   const [filters, setFilters] = React.useState({ search: '', categoryIn: [] });
@@ -23,6 +24,9 @@ const Catalogue: React.FC = () => {
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
+
+  const mediumScreen = useMediaQuery({ query: '(max-width: 991px)' });
+  const smallScreen = useMediaQuery({ query: '(max-width: 767px)' });
 
   const moduleCategories = React.useMemo(() => {
     const parentCategory = categories?.categories?.nodes.find(
@@ -221,12 +225,15 @@ const Catalogue: React.FC = () => {
     >
       <div className="catalogue-container">
         <Container>
-          <Row>
+          <Row className="catalogue-header">
             <Col xs="12" md="6">
-              <CatalogueFilters
-                handleSubmit={handleSubmit}
-                categories={moduleCategories}
-              />
+              {mediumScreen && (
+                <CatalogueFilters
+                  handleSubmit={handleSubmit}
+                  categories={moduleCategories}
+                  isDesktop={false}
+                />
+              )}
             </Col>
             <Col xs="12" md="6" style={{ padding: '0 25px' }}>
               <div className="submit-instructions">
@@ -241,9 +248,18 @@ const Catalogue: React.FC = () => {
               </div>
             </Col>
           </Row>
-          {pages}
-          <Row>
-            <Col>
+          <div className="page-content-wrapper">
+            {!mediumScreen && (
+              <div className="desktop-filters">
+                <CatalogueFilters
+                  handleSubmit={handleSubmit}
+                  categories={moduleCategories}
+                  isDesktop
+                />
+              </div>
+            )}
+            <div className="page-catalogue">
+              {pages}
               <div className="load-more" ref={ref}>
                 {!isReachingEnd && !isLoadingMore && (
                   <Button onClick={loadMore}>Load more</Button>
@@ -255,10 +271,15 @@ const Catalogue: React.FC = () => {
                   />
                 )}
               </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Container>
       </div>
+      <style jsx global>{`
+        .catalogue-header {
+          flex-direction: ${smallScreen ? 'column-reverse' : 'row'};
+        }
+      `}</style>
       <style jsx>
         {`
           .load-more {
@@ -275,12 +296,22 @@ const Catalogue: React.FC = () => {
             color: #0c5460;
             padding: 15px 15px;
             border-radius: 0.25rem;
+            margin-bottom: ${smallScreen ? '15px' : '0'};
           }
           .submit-instructions p {
             text-align: left;
           }
           .submit-instructions p:last-child {
             margin-bottom: 0;
+          }
+          .page-content-wrapper {
+            display: flex;
+          }
+          .desktop-filters {
+            padding: 10px 5px;
+          }
+          .page-catalogue {
+            flex: 1;
           }
         `}
       </style>
