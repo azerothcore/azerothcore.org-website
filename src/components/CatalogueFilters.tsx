@@ -3,31 +3,50 @@ import { Button, Input } from 'reactstrap';
 import Select from 'react-select';
 import { useOutsideClick } from '@/utils/useOutsideClick';
 
-const categories = [
-  { value: 'AzerothCore Module', label: 'Modules' },
-  { value: 'AzerothCore Premium Module', label: 'Premium Modules' },
-  { value: 'AzerothCore Tool', label: 'Tools' },
-  { value: 'AzerothCore Lua Script', label: 'Lua Scripts' },
+const categoriesAdapter = [
+  { name: 'AzerothCore Module', label: 'Modules' },
+  { name: 'AzerothCore Premium Module', label: 'Premium Modules' },
+  { name: 'AzerothCore Tool', label: 'Tools' },
+  { name: 'AzerothCore Lua Script', label: 'Lua Scripts' },
 ];
+
+type Category = {
+  databaseId: number;
+  name: string;
+};
 
 type CatalogueFiltersProps = {
   handleSubmit: Function;
+  categories: Array<Category>;
 };
 
 const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   handleSubmit,
+  categories,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>();
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const [searchInput, setSearchInput] = React.useState('');
 
   const filtersRef = React.useRef();
   useOutsideClick(filtersRef, () => setIsOpen(false));
 
   const handleSubmitButton = () => {
-    const search = inputRef.current.value;
-    const filters = { search };
+    const categoryIn = selectedCategories
+      ? selectedCategories.map(opt => opt.value)
+      : null;
+    const filters = { search: searchInput.trim(), categoryIn };
     handleSubmit(filters);
+    setIsOpen(false);
   };
+
+  const selectableCategories = React.useMemo(() => {
+    const selectable = categories.map(obj => {
+      const adapter = categoriesAdapter.find(cat => cat.name === obj.name);
+      return { ...adapter, ...obj, value: obj.databaseId };
+    });
+    return selectable;
+  }, [categories]);
 
   return (
     <>
@@ -44,18 +63,22 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
                   id="search"
                   className="module-search"
                   placeholder="Search a module/tool by name"
-                  innerRef={inputRef}
+                  value={searchInput}
+                  onChange={e => setSearchInput(e.target.value)}
                 />
               </div>
               <div className="filter-item">
                 <label htmlFor="category+">Category:</label>
                 <Select
                   isMulti
-                  name="category+"
-                  id="category+"
-                  options={categories}
+                  name="category"
+                  id="category"
+                  options={selectableCategories}
                   className="acore-multi-select"
                   classNamePrefix="select"
+                  value={selectedCategories}
+                  onChange={e => setSelectedCategories(e)}
+                  isClearable={false}
                 />
               </div>
               <div className="filter-item submit-button">
@@ -128,4 +151,4 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   );
 };
 
-export default CatalogueFilters;
+export default React.memo(CatalogueFilters);

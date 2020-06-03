@@ -2,8 +2,8 @@ import useSWR from 'swr';
 import { gqlFetcher, fetchAndCache } from './functions';
 
 const queryCatalogueList = `
-query CatalogueItems($first: Int, $after: String, $search: String) {
-  catalogueItems(first: $first, after: $after, where: {search: $search}) {
+query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: [ID]) {
+  catalogueItems(first: $first, after: $after, where: {search: $search, categoryIn: $categoryIn}) {
     pageInfo {
       endCursor
       hasNextPage
@@ -31,10 +31,13 @@ query CatalogueItems($first: Int, $after: String, $search: String) {
 /**
  * @param offset
  * @param search
+ * @param categoryIn
  */
-export function useCatalogueList(offset, search) {
-  return useSWR([queryCatalogueList, offset, search], (q, cursor, s) =>
-    gqlFetcher(q, { first: 10, after: cursor, search: s })
+export function useCatalogueList(offset, search, categoryIn) {
+  return useSWR(
+    [queryCatalogueList, offset, search, categoryIn],
+    (q, cursor, s, catIn) =>
+      gqlFetcher(q, { first: 10, after: cursor, search: s, categoryIn: catIn })
   );
 }
 
@@ -44,7 +47,7 @@ export function useCatalogueList(offset, search) {
 export function getCatalogueList() {
   return fetchAndCache(
     queryCatalogueList,
-    { first: 10, after: null, search: null },
-    [queryCatalogueList, null, null]
+    { first: 10, after: null, search: null, categoryIn: null },
+    [queryCatalogueList, null, null, null]
   );
 }

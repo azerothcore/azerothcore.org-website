@@ -15,13 +15,24 @@ import Layout from '@/components/Layout';
 import CatalogueFilters from '@/components/CatalogueFilters';
 import { useCatalogueList } from '@/utils/catalogue-hooks';
 import { getPreviewText } from '@/utils/functions';
+import { useCategories } from '@/utils/categories-hooks';
 
 const Catalogue: React.FC = () => {
-  const [errorOnFetch, setErrorOnFetch] = React.useState(false);
-  const [filters, setFilters] = React.useState({ search: '' });
+  const [filters, setFilters] = React.useState({ search: '', categoryIn: [] });
+  const { data: categories } = useCategories();
   const [ref, inView] = useInView({
     rootMargin: '-50px 0px',
   });
+
+  const moduleCategories = React.useMemo(() => {
+    const parentCategory = categories?.categories?.nodes.find(
+      category => category.name === 'AzerothCore-Wotlk'
+    );
+
+    const childCategories = parentCategory && parentCategory.children.nodes;
+    return childCategories || [];
+  }, [categories]);
+
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages(
     // page key
     'catalogue-list',
@@ -30,13 +41,8 @@ const Catalogue: React.FC = () => {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useCatalogueList(offset, filters.search)
+        useCatalogueList(offset, filters.search, filters.categoryIn)
       );
-      console.log(offset);
-      console.log(data);
-      if (error) {
-        setErrorOnFetch(true);
-      }
       return (
         <>
           <Row>
@@ -94,15 +100,26 @@ const Catalogue: React.FC = () => {
                 );
               })
             ) : (
-              <Col>
-                <p className="no-data">
-                  {!isLoadingMore &&
-                    filters.search.length > 0 &&
-                    'The search did not bring any results'}
-                  {!isLoadingMore &&
-                    filters.search.length === 0 &&
-                    `There are no available items`}
-                </p>
+              <Col xl="12">
+                {!isLoadingMore && (
+                  <div className="no-data-content">
+                    {!data && (
+                      <Spinner
+                        style={{ width: '3rem', height: '3rem' }}
+                        type="grow"
+                      />
+                    )}
+                    <p>
+                      {error && 'There was an error while loading the data'}
+                      {data &&
+                        filters.search.length > 0 &&
+                        'The search did not bring any results'}
+                      {data &&
+                        filters.search.length === 0 &&
+                        `There are no available items`}
+                    </p>
+                  </div>
+                )}
               </Col>
             )}
           </Row>
@@ -142,7 +159,10 @@ const Catalogue: React.FC = () => {
                 max-height: 100%;
                 max-width: 100%;
               }
-              .no-data {
+              .no-data-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin-top: 15px;
               }
             `}
@@ -190,7 +210,6 @@ const Catalogue: React.FC = () => {
   );
 
   const handleSubmit = values => {
-    console.log(values);
     setFilters(values);
   };
 
@@ -204,7 +223,10 @@ const Catalogue: React.FC = () => {
         <Container>
           <Row>
             <Col xs="12" md="6">
-              <CatalogueFilters handleSubmit={handleSubmit} />
+              <CatalogueFilters
+                handleSubmit={handleSubmit}
+                categories={moduleCategories}
+              />
             </Col>
             <Col xs="12" md="6" style={{ padding: '0 25px' }}>
               <div className="submit-instructions">
@@ -219,7 +241,6 @@ const Catalogue: React.FC = () => {
               </div>
             </Col>
           </Row>
-
           {pages}
           <Row>
             <Col>
@@ -227,14 +248,11 @@ const Catalogue: React.FC = () => {
                 {!isReachingEnd && !isLoadingMore && (
                   <Button onClick={loadMore}>Load more</Button>
                 )}
-                {isLoadingMore && !errorOnFetch && (
+                {isLoadingMore && (
                   <Spinner
                     style={{ width: '3rem', height: '3rem' }}
                     type="grow"
                   />
-                )}
-                {errorOnFetch && (
-                  <p>There was an error fetching the catalogue</p>
                 )}
               </div>
             </Col>
