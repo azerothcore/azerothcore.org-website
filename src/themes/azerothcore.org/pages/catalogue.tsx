@@ -59,10 +59,15 @@ const Catalogue: React.FC = () => {
                     <div className="testimonials-card-container">
                       <Card className="post-card" body>
                         <div className="testimonial-image-container">
-                          {item.featuredImage && (
+                          {item.featuredImage ? (
                             <img
                               src={item.featuredImage.sourceUrl}
                               alt={item.featuredImage.altText}
+                            />
+                          ) : (
+                            <img
+                              src={`${process.env.BACKEND_URL}/logo.png`}
+                              alt="Azeroth Core logo"
                             />
                           )}
                         </div>
