@@ -34,10 +34,18 @@ query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: 
  * @param categoryIn
  */
 export function useCatalogueList(offset, search, categoryIn) {
+  const categoryKey =
+    categoryIn && categoryIn.length > 0 ? categoryIn.join('') : null;
+  console.log(categoryKey);
   return useSWR(
-    [queryCatalogueList, offset, search, categoryIn],
-    (q, cursor, s, catIn) =>
-      gqlFetcher(q, { first: 10, after: cursor, search: s, categoryIn: catIn })
+    [queryCatalogueList, offset, search, categoryKey],
+    (q, cursor, s) =>
+      gqlFetcher(q, {
+        first: 10,
+        after: cursor,
+        search: s,
+        categoryIn: categoryIn,
+      })
   );
 }
 

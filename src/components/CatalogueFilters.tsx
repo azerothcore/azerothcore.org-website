@@ -46,7 +46,7 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   const removeFilters = () => {
     setSelectedCategories([]);
     setSearchInput('');
-    handleSubmitButton();
+    handleSubmit({ search: '', categoryIn: [] });
   };
 
   const selectableCategories = React.useMemo(() => {
