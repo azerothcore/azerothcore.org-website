@@ -36,7 +36,7 @@ query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: 
 export function useCatalogueList(offset, search, categoryIn) {
   const categoryKey =
     categoryIn && categoryIn.length > 0 ? categoryIn.join('') : null;
-  console.log(categoryKey);
+
   return useSWR(
     [queryCatalogueList, offset, search, categoryKey],
     (q, cursor, s) =>

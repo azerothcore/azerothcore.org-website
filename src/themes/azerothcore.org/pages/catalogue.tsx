@@ -231,6 +231,7 @@ const Catalogue: React.FC = () => {
                 <CatalogueFilters
                   handleSubmit={handleSubmit}
                   categories={moduleCategories}
+                  filters={filters}
                   isDesktop={false}
                 />
               )}
@@ -254,6 +255,7 @@ const Catalogue: React.FC = () => {
                 <CatalogueFilters
                   handleSubmit={handleSubmit}
                   categories={moduleCategories}
+                  filters={filters}
                   isDesktop
                 />
               </div>

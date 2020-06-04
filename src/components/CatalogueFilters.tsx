@@ -3,6 +3,7 @@ import { Button, Input } from 'reactstrap';
 import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useOutsideClick } from '@/utils/useOutsideClick';
+import isEqual from 'lodash.isequal';
 
 const categoriesAdapter = [
   { name: 'AzerothCore Module', label: 'Modules' },
@@ -16,15 +17,22 @@ type Category = {
   name: string;
 };
 
+type Filters = {
+  search: string;
+  categoryIn: number[];
+};
+
 type CatalogueFiltersProps = {
   handleSubmit: Function;
   categories: Array<Category>;
   isDesktop: boolean;
+  filters: Filters;
 };
 
 const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
   handleSubmit,
   categories,
+  filters,
   isDesktop,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -56,6 +64,21 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
     });
     return selectable;
   }, [categories]);
+
+  const canRemoveFilters = React.useMemo(
+    () => filters.search !== '' || filters.categoryIn.length > 0,
+    [filters]
+  );
+
+  const canApplyFilters = React.useMemo(
+    () =>
+      searchInput !== filters.search ||
+      !isEqual(
+        selectedCategories.map(opt => opt.value).sort(),
+        filters.categoryIn.sort()
+      ),
+    [filters, selectedCategories, searchInput]
+  );
 
   return (
     <>
@@ -95,10 +118,19 @@ const CatalogueFilters: React.FC<CatalogueFiltersProps> = ({
                 />
               </div>
               <div className="filter-item submit-button">
-                <Button onClick={handleSubmitButton}>Apply filters</Button>
+                <Button
+                  disabled={!canApplyFilters}
+                  onClick={handleSubmitButton}
+                >
+                  Apply filters
+                </Button>
               </div>
               <div className="filter-item reset-button">
-                <Button color="danger" onClick={removeFilters}>
+                <Button
+                  disabled={!canRemoveFilters}
+                  color="danger"
+                  onClick={removeFilters}
+                >
                   Remove filters
                 </Button>
               </div>
