@@ -64,6 +64,14 @@ const Testimonial: React.FC<MatchProps> = ({ match }) => {
                   source={data.testimonial.content}
                   escapeHtml={false}
                 />
+                {data.testimonial?.testimonialDetails?.website && (
+                  <div className="testimonial-site-link">
+                    <span>Website: </span>
+                    <a href={data.testimonial.testimonialDetails.website}>
+                      {data.testimonial.testimonialDetails.website}
+                    </a>
+                  </div>
+                )}
               </>
             )}
           </Col>

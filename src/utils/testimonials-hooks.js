@@ -18,12 +18,18 @@ query Testimonials {
 }
 `;
 
+/**
+ *
+ */
 export function useTestimonialsList() {
   return useSWR(queryTestimonialsList, () =>
     gqlFetcher(queryTestimonialsList, {})
   );
 }
 
+/**
+ *
+ */
 export function getTestimonialsList() {
   return fetchAndCache(queryTestimonialsList, {}, queryTestimonialsList);
 }
@@ -37,14 +43,23 @@ query Testimonial($id: ID!) {
       sourceUrl
       altText
     }
+    testimonialDetails {
+      website
+    }
   }
 }
 `;
 
+/**
+ * @param slug
+ */
 export function useCurrentTestimonial(slug) {
   return useSWR([queryTestimonial, slug], (q, sl) => gqlFetcher(q, { id: sl }));
 }
 
+/**
+ * @param slug
+ */
 export function getCurrentTestimonial(slug) {
   return fetchAndCache(queryTestimonial, { id: slug }, [
     queryTestimonial,
