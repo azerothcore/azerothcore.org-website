@@ -9,6 +9,7 @@ query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: 
       hasNextPage
     }
     nodes {
+      databaseId
       date
       title
       slug
@@ -18,7 +19,6 @@ query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: 
         nicename
         nickname
       }
-      databaseId
       featuredImage {
         altText
         uri
@@ -57,5 +57,45 @@ export function getCatalogueList() {
   return fetchAndCache(queryCatalogueList, { ...allParams }, [
     queryCatalogueList,
     cacheKey,
+  ]);
+}
+
+const queryCatalogueItem = `
+query CatalogueItem($id: ID!) {
+  catalogueItem(id: $id, idType: URI) {
+    date
+    title
+    slug
+    content(format: RENDERED)
+    author {
+      name
+      nicename
+      nickname
+    }
+    featuredImage {
+      altText
+      uri
+      link
+    }
+  }
+}
+`;
+
+/**
+ * @param slug
+ */
+export function useCatalogueItem(slug) {
+  return useSWR([queryCatalogueItem, slug], (q, sl) =>
+    gqlFetcher(q, { id: sl })
+  );
+}
+
+/**
+ * @param slug
+ */
+export function getCatalogueItem(slug) {
+  return fetchAndCache(queryCatalogueItem, { id: slug }, [
+    queryCatalogueItem,
+    slug,
   ]);
 }

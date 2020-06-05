@@ -13,9 +13,10 @@ import { useInView } from 'react-intersection-observer';
 import ReactMarkdown from 'react-markdown';
 import Layout from '@/components/Layout';
 import CatalogueFilters from '@/components/CatalogueFilters';
-import { useCatalogueList } from '@/utils/catalogue-hooks';
+import { useCatalogueList, getCatalogueItem } from '@/utils/catalogue-hooks';
 import { getPreviewText } from '@/utils/functions';
 import { useCategories } from '@/utils/categories-hooks';
+import LinkPrefetch from '@/components/LinkPrefetch';
 import { useMediaQuery } from 'react-responsive';
 
 const Catalogue: React.FC = () => {
@@ -88,20 +89,18 @@ const Catalogue: React.FC = () => {
                           </div>
                         </div>
                         <div className="button-container">
-                          {/* <LinkPrefetch
-                              href="/[...dynamic]"
-                              as={`${process.env.BACKEND_URL}/catalogue/${item.slug}`}
-                              passHref
-                              prefetch={false}
-                              className="testimonials-link"
-                              prepare={() =>
-                                getCurrentCatalogueItem(testimonial.slug)
-                              }
-                            >
-                              <Button className="post-card-button">
-                                Read more
-                              </Button>
-                            </LinkPrefetch> */}
+                          <LinkPrefetch
+                            href="/[...dynamic]"
+                            as={`${process.env.BACKEND_URL}/catalogue/${item.slug}`}
+                            passHref
+                            prefetch={false}
+                            className="catalogue-item-link"
+                            prepare={() => getCatalogueItem(item.slug)}
+                          >
+                            <Button className="post-card-button">
+                              Find out more
+                            </Button>
+                          </LinkPrefetch>
                         </div>
                       </Card>
                     </div>
@@ -155,7 +154,7 @@ const Catalogue: React.FC = () => {
               }
               .button-container {
                 display: flex;
-                justify-content: stretch;
+                justify-content: flex-end;
               }
               .testimonial-image-container {
                 height: 170px;

@@ -3,6 +3,7 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { useRouter as useNextRouter } from 'next/router';
 import Post from '@/components/Post';
 import Testimonial from '@/components/Testimonial';
+import CatalogueItem from '@/components/CatalogueItem';
 import _NotFoundPage from './_NotFoundPage';
 import _LoadingPage from './_LoadingPage';
 
@@ -29,6 +30,7 @@ const Dynamic: React.FC = () => {
     <Switch>
       <Route exact path="/blog/:slug" component={Post} />
       <Route exact path="/testimonials/:slug" component={Testimonial} />
+      <Route exact path="/catalogue/:slug" component={CatalogueItem} />
       {/*
         START REDIRECT ROUTES
       */}
