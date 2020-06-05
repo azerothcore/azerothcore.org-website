@@ -29,23 +29,16 @@ query CatalogueItems($first: Int, $after: String, $search: String, $categoryIn: 
 }`;
 
 /**
- * @param offset
- * @param search
- * @param categoryIn
+ *
  */
-export function useCatalogueList(offset, search, categoryIn) {
-  const categoryKey =
-    categoryIn && categoryIn.length > 0 ? categoryIn.join('') : null;
+export function useCatalogueList({ ...params }) {
+  const allParams = { first: 10, ...params };
+  const cacheKey = JSON.stringify(allParams);
 
-  return useSWR(
-    [queryCatalogueList, offset, search, categoryKey],
-    (q, cursor, s) =>
-      gqlFetcher(q, {
-        first: 10,
-        after: cursor,
-        search: s,
-        categoryIn: categoryIn,
-      })
+  return useSWR([queryCatalogueList, cacheKey], q =>
+    gqlFetcher(q, {
+      ...allParams,
+    })
   );
 }
 
@@ -53,9 +46,16 @@ export function useCatalogueList(offset, search, categoryIn) {
  *
  */
 export function getCatalogueList() {
-  return fetchAndCache(
+  const allParams = {
+    first: 10,
+    after: null,
+    search: '',
+    categoryIn: [],
+  };
+
+  const cacheKey = JSON.stringify(allParams);
+  return fetchAndCache(queryCatalogueList, { ...allParams }, [
     queryCatalogueList,
-    { first: 10, after: null, search: null, categoryIn: null },
-    [queryCatalogueList, null, null, null]
-  );
+    cacheKey,
+  ]);
 }

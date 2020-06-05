@@ -17,6 +17,7 @@ import LinkPrefetch from './LinkPrefetch';
 import { getPostList } from '@/utils/blog-hooks';
 import { getTestimonialsList } from '@/utils/testimonials-hooks';
 import { getDonations } from '@/utils/donation-hooks';
+import { getCatalogueList } from '@/utils/catalogue-hooks';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -113,16 +114,16 @@ const Header = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Link
+              <LinkPrefetch
                 href="/catalogue"
                 as={`${process.env.BACKEND_URL}/catalogue`}
                 passHref
+                prepare={getCatalogueList}
+                className="nav-link"
               >
-                <NavLink>
-                  <FontAwesomeIcon size="sm" icon="cloud-download-alt" />{' '}
-                  Catalogue
-                </NavLink>
-              </Link>
+                <FontAwesomeIcon size="sm" icon="cloud-download-alt" />{' '}
+                Catalogue
+              </LinkPrefetch>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

@@ -45,7 +45,7 @@ const Catalogue: React.FC = () => {
     ({ offset, withSWR }) => {
       const { data, error } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        useCatalogueList(offset, filters.search, filters.categoryIn)
+        useCatalogueList({ after: offset, ...filters })
       );
       return (
         <>
