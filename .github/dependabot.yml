@@ -5,8 +5,5 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "development"
-    labels:
-      - "npm"
-      - "dependencies"
     reviewers:
       - "breizh24"
