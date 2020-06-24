@@ -1,5 +1,12 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import {
+  faGithub,
+  faStackOverflow,
+  faWikipediaW,
+  faFacebookF,
+  faTwitter,
+  faLinkedinIn,
+} from '@fortawesome/free-brands-svg-icons';
 import {
   faAngleRight,
   faBars,
@@ -29,7 +36,12 @@ import React from 'react';
 import { Button, Container } from 'reactstrap';
 
 library.add(
-  fab,
+  faGithub,
+  faStackOverflow,
+  faWikipediaW,
+  faFacebookF,
+  faTwitter,
+  faLinkedinIn,
   faHome,
   faRss,
   faExternalLinkAlt,
