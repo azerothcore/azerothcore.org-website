@@ -57,7 +57,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.9.0",
+    "eslint-plugin-jest": "^23.17.1",
     "eslint-plugin-jsdoc": "^24.0.6",
     "eslint-plugin-json": "^2.1.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
