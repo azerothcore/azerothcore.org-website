@@ -19,7 +19,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.1",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@next/bundle-analyzer": "^9.3.6",
+    "@next/bundle-analyzer": "^9.4.4",
     "@nivo/pie": "^0.62.0",
     "@zeit/next-css": "^1.0.1",
     "bootstrap": "^4.4.1",
